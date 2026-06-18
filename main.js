@@ -12,27 +12,12 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 const yearEl = $('#year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-/* ── sobre photo ── */
-(function loadSobrePhoto() {
-  const extensions = ['jpg', 'jpeg', 'png', 'webp'];
-  const names = ['sobre', 'fernanda', 'perfil', 'profile'];
+/* ── sobre photo — src fixo no HTML ── */
+(function () {
   const img = $('#sobrePhoto');
   if (!img) return;
-
-  const attempts = [];
-  names.forEach(n => extensions.forEach(e => {
-    attempts.push(`fotos/${n}.${e}`);
-    attempts.push(`logos/${n}.${e}`);
-  }));
-
-  let tried = 0;
-  function tryNext() {
-    if (tried >= attempts.length) return;
-    img.src = attempts[tried++];
-    img.onload = () => img.classList.add('loaded');
-    img.onerror = tryNext;
-  }
-  tryNext();
+  img.onload = () => img.classList.add('loaded');
+  img.onerror = () => {}; // mantém o fallback FG se arquivo não existir
 })();
 
 /* ════════════════════════════════════════
@@ -259,6 +244,7 @@ if (cursor && follower && window.matchMedia('(hover: hover)').matches) {
     found.forEach((src, idx) => {
       const card = document.createElement('div');
       card.className = 'video-card' + (idx === 0 ? ' active' : '');
+      card.dataset.type = 'local';
 
       const video = document.createElement('video');
       video.src = src;
@@ -299,45 +285,86 @@ if (cursor && follower && window.matchMedia('(hover: hover)').matches) {
 
   function setupCarouselControls(track, total) {
     let current = 0;
-    const cards = $$('.video-card', track.parentElement);
+    const carousel = track.parentElement;
+    const cards = $$('.video-card', carousel);
+
+    function deactivateCurrent() {
+      const card = cards[current];
+      if (!card) return;
+      card.classList.remove('active');
+
+      if (card.dataset.type === 'local') {
+        const v = card.querySelector('video');
+        if (v) { v.pause(); v.controls = false; }
+      } else if (card.dataset.type === 'drive') {
+        // Remove iframe para parar o vídeo
+        const iframe = card.querySelector('iframe');
+        if (iframe) iframe.remove();
+        // Reexibe thumbnail
+        const thumb = card.querySelector('.drive-thumb');
+        if (thumb) thumb.style.display = '';
+      }
+    }
+
+    function activateCard(idx) {
+      const card = cards[idx];
+      if (!card) return;
+      card.classList.add('active');
+
+      if (card.dataset.type === 'local') {
+        const v = card.querySelector('video');
+        if (v) { v.controls = true; v.play().catch(() => {}); }
+      } else if (card.dataset.type === 'drive') {
+        // Injeta iframe ao ativar
+        const thumb = card.querySelector('.drive-thumb');
+        if (thumb) thumb.style.display = 'none';
+        const existing = card.querySelector('iframe');
+        if (!existing) {
+          const iframe = document.createElement('iframe');
+          iframe.src = `https://drive.google.com/file/d/${card.dataset.driveId}/preview`;
+          iframe.allow = 'autoplay';
+          iframe.allowFullscreen = true;
+          iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:none;';
+          card.appendChild(iframe);
+        }
+      }
+    }
 
     function goTo(idx) {
-      if (total <= 1) return;
-      // Pause previous
-      const prevVideo = cards[current]?.querySelector('video');
-      if (prevVideo) { prevVideo.pause(); prevVideo.controls = false; }
-
+      deactivateCurrent();
       current = (idx + total) % total;
+      activateCard(current);
 
-      cards.forEach((c, i) => {
-        c.classList.toggle('active', i === current);
-        const v = c.querySelector('video');
-        if (i === current) {
-          v.controls = true;
-          v.play().catch(() => {});
-        } else {
-          v.controls = false;
-        }
-      });
-
-      // Center the active card
+      // Centraliza
       const card = cards[current];
-      const carousel = track.parentElement;
       const offset = card.offsetLeft - carousel.offsetWidth / 2 + card.offsetWidth / 2;
       carousel.scrollTo({ left: offset, behavior: 'smooth' });
     }
 
+    // Clique em card lateral ativa
+    cards.forEach((card, i) => {
+      card.addEventListener('click', () => { if (i !== current) goTo(i); });
+    });
+
     $('#videoPrev')?.addEventListener('click', () => goTo(current - 1));
     $('#videoNext')?.addEventListener('click', () => goTo(current + 1));
 
-    // Pause when out of viewport
+    // Pause ao sair do viewport
     const section = document.getElementById('videos');
     if (section) {
       const io = new IntersectionObserver(([e]) => {
         if (!e.isIntersecting) {
           cards.forEach(c => c.querySelector('video')?.pause());
+          // Também remove o iframe do Drive para parar
+          const active = cards[current];
+          if (active?.dataset.type === 'drive') {
+            const iframe = active.querySelector('iframe');
+            if (iframe) iframe.remove();
+            const thumb = active.querySelector('.drive-thumb');
+            if (thumb) thumb.style.display = '';
+          }
         } else {
-          cards[current]?.querySelector('video')?.play().catch(() => {});
+          activateCard(current);
         }
       }, { threshold: 0.2 });
       io.observe(section);
