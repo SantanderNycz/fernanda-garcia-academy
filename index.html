@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fernanda Garcia Academy</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Custom cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursorFollower"></div>
+
+  <!-- ═══════════════════════════════════════
+       NAVBAR
+  ═══════════════════════════════════════ -->
+  <header class="navbar" id="navbar">
+    <div class="navbar__inner">
+      <a href="#hero" class="navbar__logo" id="navLogo">
+        <!-- Logo image (placed in logos/) -->
+        <img id="logoImg" src="" alt="Fernanda Garcia Academy" />
+        <!-- Fallback text logo shown when image is missing -->
+        <span class="navbar__logo-text" id="logoFallback">
+          <span class="logo-name">Fernanda Garcia</span>
+          <span class="logo-sub">Academy</span>
+        </span>
+      </a>
+
+      <nav class="navbar__nav">
+        <a href="#sobre">Sobre</a>
+        <a href="#portfolio">Portfólio</a>
+        <a href="#videos">Vídeos</a>
+        <a href="#contato" class="nav-cta">Quero me inscrever</a>
+      </nav>
+
+      <button class="navbar__burger" id="burger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- Mobile nav -->
+    <div class="navbar__mobile" id="mobileNav">
+      <a href="#sobre" class="mobile-link">Sobre</a>
+      <a href="#portfolio" class="mobile-link">Portfólio</a>
+      <a href="#videos" class="mobile-link">Vídeos</a>
+      <a href="#contato" class="mobile-link mobile-cta">Quero me inscrever</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ═══════════════════════════════════════
+         HERO
+    ═══════════════════════════════════════ -->
+    <section class="hero" id="hero">
+      <div class="hero__bg">
+        <!-- Hero image placeholder — replace src with real photo -->
+        <div class="hero__bg-overlay"></div>
+      </div>
+
+      <div class="hero__content">
+        <p class="hero__eyebrow reveal-line">Bem-vinda ao</p>
+        <h1 class="hero__title reveal-line">
+          <span class="title-name">Fernanda Garcia</span>
+          <span class="title-academy">Academy</span>
+        </h1>
+        <p class="hero__tagline reveal-line">
+          Transforme sua paixão por maquiagem em uma carreira de sucesso.
+        </p>
+        <a href="#contato" class="btn btn--primary reveal-line">Quero me inscrever</a>
+      </div>
+
+      <div class="hero__scroll-hint">
+        <span>Role para descobrir</span>
+        <div class="hero__scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         SOBRE
+    ═══════════════════════════════════════ -->
+    <section class="sobre" id="sobre">
+      <div class="container">
+        <div class="sobre__grid">
+          <div class="sobre__photo-wrap gs-reveal">
+            <div class="sobre__photo-placeholder">
+              <img src="" alt="Fernanda Garcia" class="sobre__photo" id="sobrePhoto" />
+              <div class="sobre__photo-fallback">
+                <span>FG</span>
+              </div>
+            </div>
+            <div class="sobre__accent-block"></div>
+          </div>
+
+          <div class="sobre__text gs-reveal">
+            <span class="section-label">Sobre mim</span>
+            <h2 class="section-title">
+              Arte que <em>transforma</em>
+            </h2>
+            <p>
+              Sou Fernanda Garcia, maquiadora profissional há mais de 10 anos.
+              Desenvolvi uma metodologia única que une técnica, sensibilidade artística
+              e valorização da beleza natural de cada cliente.
+            </p>
+            <p>
+              Na <strong>Fernanda Garcia Academy</strong>, compartilho tudo o que aprendi
+              — do básico ao avançado — para que você construa uma carreira sólida,
+              criativa e lucrativa na área de maquiagem.
+            </p>
+            <div class="sobre__stats">
+              <div class="stat">
+                <span class="stat__num">+500</span>
+                <span class="stat__label">Alunas formadas</span>
+              </div>
+              <div class="stat">
+                <span class="stat__num">10+</span>
+                <span class="stat__label">Anos de experiência</span>
+              </div>
+              <div class="stat">
+                <span class="stat__num">100%</span>
+                <span class="stat__label">Online e ao vivo</span>
+              </div>
+            </div>
+            <a href="#contato" class="btn btn--outline">Conheça o curso</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         PORTFÓLIO / MOSAICO
+    ═══════════════════════════════════════ -->
+    <section class="portfolio" id="portfolio">
+      <div class="container">
+        <div class="section-header gs-reveal">
+          <span class="section-label">Portfólio</span>
+          <h2 class="section-title">Cada olhar,<br /><em>uma história</em></h2>
+        </div>
+      </div>
+
+      <!-- Mosaic grid — populated by JS from fotos/ -->
+      <div class="mosaic" id="mosaic">
+        <!-- JS inserts items here; fallback placeholders below shown when no images -->
+        <div class="mosaic__fallback" id="mosaicFallback">
+          <div class="mosaic-ph mosaic-ph--a"></div>
+          <div class="mosaic-ph mosaic-ph--b"></div>
+          <div class="mosaic-ph mosaic-ph--c"></div>
+          <div class="mosaic-ph mosaic-ph--d"></div>
+          <div class="mosaic-ph mosaic-ph--e"></div>
+          <div class="mosaic-ph mosaic-ph--f"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         CARROSSEL DE VÍDEOS
+    ═══════════════════════════════════════ -->
+    <section class="videos-section" id="videos">
+      <div class="container">
+        <div class="section-header gs-reveal">
+          <span class="section-label">Conteúdo</span>
+          <h2 class="section-title">Veja na <em>prática</em></h2>
+        </div>
+      </div>
+
+      <div class="carousel-wrap gs-reveal">
+        <button class="carousel-btn carousel-btn--prev" id="videoPrev" aria-label="Anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+
+        <div class="carousel" id="videoCarousel">
+          <!-- JS inserts video cards here; fallback shown when no videos -->
+          <div class="carousel__fallback" id="carouselFallback">
+            <div class="video-card video-card--ph">
+              <div class="video-ph-inner">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg>
+                <span>Adicione vídeos<br />na pasta <code>videos/</code></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="carousel-btn carousel-btn--next" id="videoNext" aria-label="Próximo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         CONTATO / FORMULÁRIO
+    ═══════════════════════════════════════ -->
+    <section class="contato" id="contato">
+      <div class="container">
+        <div class="contato__inner">
+          <div class="contato__text gs-reveal">
+            <span class="section-label">Contato</span>
+            <h2 class="section-title">
+              Comece sua<br /><em>transformação</em>
+            </h2>
+            <p>
+              Preencha o formulário e entraremos em contato pelo WhatsApp
+              para te apresentar todos os detalhes do curso.
+            </p>
+            <div class="contato__contact-info">
+              <a href="https://instagram.com/fernandagarcia" target="_blank" rel="noopener" class="contact-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
+                @fernandagarcia
+              </a>
+              <a href="https://wa.me/5519971058988" target="_blank" rel="noopener" class="contact-link">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.522 5.847L.057 23.882l6.19-1.442A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.002-1.368l-.359-.213-3.724.868.883-3.63-.233-.373A9.815 9.815 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182S21.818 6.58 21.818 12 17.42 21.818 12 21.818z"/></svg>
+                (19) 97105-8988
+              </a>
+            </div>
+          </div>
+
+          <form class="contato__form gs-reveal" id="contactForm" novalidate>
+            <div class="form-group">
+              <label for="nome">Nome completo</label>
+              <input type="text" id="nome" name="nome" placeholder="Seu nome" autocomplete="name" />
+              <span class="form-error" id="erroNome"></span>
+            </div>
+            <div class="form-group">
+              <label for="telefone">Telefone / WhatsApp</label>
+              <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" autocomplete="tel" />
+              <span class="form-error" id="erroTelefone"></span>
+            </div>
+            <div class="form-group">
+              <label for="mensagem">Mensagem (opcional)</label>
+              <textarea id="mensagem" name="mensagem" rows="4" placeholder="Conte um pouco sobre você..."></textarea>
+            </div>
+            <button type="submit" class="btn btn--primary btn--full">
+              Enviar pelo WhatsApp
+              <svg viewBox="0 0 24 24" fill="currentColor" class="btn__icon"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.522 5.847L.057 23.882l6.19-1.442A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.002-1.368l-.359-.213-3.724.868.883-3.63-.233-.373A9.815 9.815 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182S21.818 6.58 21.818 12 17.42 21.818 12 21.818z"/></svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <a href="#hero" class="footer__logo">
+            <span class="logo-name">Fernanda Garcia</span>
+            <span class="logo-sub">Academy</span>
+          </a>
+          <p>Transformando paixão em profissão.</p>
+        </div>
+
+        <nav class="footer__nav">
+          <strong>Links</strong>
+          <a href="#sobre">Sobre</a>
+          <a href="#portfolio">Portfólio</a>
+          <a href="#videos">Vídeos</a>
+          <a href="#contato">Contato</a>
+        </nav>
+
+        <div class="footer__social">
+          <strong>Redes sociais</strong>
+          <a href="https://instagram.com/fernandagarcia" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
+            @fernandagarcia
+          </a>
+          <a href="https://wa.me/5519971058988" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.522 5.847L.057 23.882l6.19-1.442A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.002-1.368l-.359-.213-3.724.868.883-3.63-.233-.373A9.815 9.815 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182S21.818 6.58 21.818 12 17.42 21.818 12 21.818z"/></svg>
+            WhatsApp
+          </a>
+          <a href="mailto:fergarcya@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+            fergarcya@gmail.com
+          </a>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p>&copy; <span id="year"></span> Fernanda Garcia Academy. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
