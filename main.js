@@ -405,7 +405,7 @@ form?.addEventListener('submit', e => {
   const msgParts = [
     `Olá Fernanda! 😊`,
     ``,
-    `Meu nome é *${nome.value.trim()}* e gostaria de saber mais sobre o seu curso.`,
+    `Meu nome é *${nome.value.trim()}* e gostaria de saber mais sobre o *Manual Prático de Lash Lifting Profissional*.`,
     ``,
     `📱 Telefone: ${ddi?.value || '+55'} ${telefone.value.trim()}`,
   ];
