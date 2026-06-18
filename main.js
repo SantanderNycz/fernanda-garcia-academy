@@ -12,28 +12,6 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 const yearEl = $('#year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-/* ════════════════════════════════════════
-   2. LOGO — try images in logos/
-════════════════════════════════════════ */
-(function loadLogo() {
-  const extensions = ['png', 'svg', 'jpg', 'jpeg', 'webp'];
-  const names = ['logo', 'Logo', 'LOGO'];
-  const img = $('#logoImg');
-  if (!img) return;
-
-  let tried = 0;
-  const attempts = [];
-  names.forEach(n => extensions.forEach(e => attempts.push(`logos/${n}.${e}`)));
-
-  function tryNext() {
-    if (tried >= attempts.length) return;
-    img.src = attempts[tried++];
-    img.onload = () => img.classList.add('loaded');
-    img.onerror = tryNext;
-  }
-  tryNext();
-})();
-
 /* ── sobre photo ── */
 (function loadSobrePhoto() {
   const extensions = ['jpg', 'jpeg', 'png', 'webp'];
@@ -109,82 +87,133 @@ if (cursor && follower && window.matchMedia('(hover: hover)').matches) {
 }
 
 /* ════════════════════════════════════════
-   5. MOSAIC — load fotos/
+   5. MOSAIC — fotos intercaladas com cards
 ════════════════════════════════════════ */
 (function loadMosaic() {
-  // Known image extensions to try
-  const exts = ['jpg', 'jpeg', 'png', 'webp'];
-  // Try numbered filenames 1-30 and named patterns
-  const candidates = [];
-
-  for (let i = 1; i <= 30; i++) {
-    exts.forEach(e => {
-      candidates.push(`fotos/${i}.${e}`);
-      candidates.push(`fotos/foto${i}.${e}`);
-      candidates.push(`fotos/img${i}.${e}`);
-    });
+  // Lê o índice de diretório — normaliza barras invertidas do Windows
+  async function listDir(dir, extsRegex) {
+    try {
+      const res = await fetch(`/${dir}/`);
+      const html = await res.text();
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      return [...doc.querySelectorAll('a[href]')]
+        .map(a => decodeURIComponent(a.getAttribute('href')))
+        .filter(h => extsRegex.test(h))
+        .map(h => {
+          // extrai só o nome do arquivo (suporta / e \)
+          const name = h.replace(/^.*[\/\\]/, '');
+          return `${dir}/${name}`;
+        });
+    } catch { return []; }
   }
-  // also try common names
-  ['foto','maquiagem','look','beauty','face','noiva','noiva1','noiva2','olho','olhos'].forEach(n => {
-    exts.forEach(e => candidates.push(`fotos/${n}.${e}`));
-  });
 
-  const found = [];
-  let pending = candidates.length;
+  const photoCandidates = [];
 
-  function finish() {
-    pending--;
-    if (pending > 0) return;
+  // Patterns reais na pasta logos/
+  const knownPatterns = ['logos/pattern marrom.png', 'logos/pattern branco.png'];
+
+  // Cards de cor sólida que aparecem no mosaico (intercalados)
+  const CARDS = [
+    { type: 'dark',   patternIdx: 1, text: 'Técnica & Arte',        sub: 'Academy' },
+    { type: 'accent', patternIdx: 0, text: 'Formando Profissionais', sub: '10+ anos' },
+    { type: 'dark',   patternIdx: 1, text: '+500 Alunas',            sub: 'Formadas' },
+  ];
+
+  const foundPhotos = [];
+  const foundPatterns = [];
+  let pendingPhotos = 1; // será re-atribuído após listDir
+  let pendingPatterns = knownPatterns.length;
+
+  function tryBuildMosaic() {
+    if (pendingPhotos > 0 || pendingPatterns > 0) return;
 
     const fallback = $('#mosaicFallback');
-    if (found.length === 0) {
-      // keep fallback placeholders visible with animation
+    if (foundPhotos.length === 0) {
+      // Placeholders com animação
       $$('.mosaic-ph').forEach((el, i) => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        setTimeout(() => {
-          el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
-          el.style.opacity = '1';
-          el.style.transform = 'translateY(0)';
-        }, i * 120);
+        el.style.transition = `opacity 0.7s ease ${i * 0.12}s, transform 0.7s ease ${i * 0.12}s`;
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
       });
       return;
     }
 
-    // Build real mosaic
     if (fallback) fallback.remove();
-    const mosaic = $('#mosaic');
-    const grid = document.createElement('div');
-    grid.className = 'mosaic__grid';
+    const mosaicEl = $('#mosaic');
 
-    found.forEach(src => {
-      const item = document.createElement('div');
-      item.className = 'mosaic__item gs-reveal';
+    // Intercalar fotos com cards
+    let photoIdx = 0;
+    let cardIdx  = 0;
+    const totalItems = foundPhotos.length + Math.min(CARDS.length, Math.floor(foundPhotos.length / 2));
 
-      const img = document.createElement('img');
-      img.src = src;
-      img.alt = 'Portfólio Fernanda Garcia';
-      img.loading = 'lazy';
+    for (let i = 0; i < totalItems; i++) {
+      // A cada 2 fotos, inserir 1 card
+      const isCard = (i % 3 === 2) && cardIdx < CARDS.length;
 
-      const overlay = document.createElement('div');
-      overlay.className = 'mosaic__overlay';
+      if (isCard) {
+        const card = CARDS[cardIdx++ % CARDS.length];
+        const item = document.createElement('div');
+        item.className = `mosaic__item mosaic__item--card${card.type === 'dark' ? ' card--dark' : ''} gs-reveal`;
 
-      item.appendChild(img);
-      item.appendChild(overlay);
-      grid.appendChild(item);
-    });
+        // Pattern: arquivo real ou inline SVG fallback
+        const patDiv = document.createElement('div');
+        const patSrc = foundPatterns[card.patternIdx] || foundPatterns[0];
+        if (patSrc) {
+          patDiv.className = 'card__pattern';
+          patDiv.style.backgroundImage = `url('${patSrc}')`;
+          patDiv.style.backgroundSize = 'contain';
+          patDiv.style.backgroundRepeat = 'repeat';
+          patDiv.style.opacity = '0.15';
+        } else {
+          patDiv.className = `card__pattern card__pattern--${card.patternIdx === 0 ? 'lines' : 'dots'}`;
+        }
 
-    mosaic.appendChild(grid);
-    initScrollReveal(); // re-init for new elements
+        const textDiv = document.createElement('div');
+        textDiv.className = 'card__text';
+        textDiv.innerHTML = `<strong>${card.text}</strong><span>${card.sub}</span>`;
+
+        item.appendChild(patDiv);
+        item.appendChild(textDiv);
+        mosaicEl.appendChild(item);
+      } else if (photoIdx < foundPhotos.length) {
+        const item = document.createElement('div');
+        item.className = 'mosaic__item mosaic__item--photo gs-reveal';
+
+        const img = document.createElement('img');
+        img.src = foundPhotos[photoIdx++];
+        img.alt = 'Portfólio Fernanda Garcia';
+        img.loading = 'lazy';
+
+        const overlay = document.createElement('div');
+        overlay.className = 'mosaic__overlay';
+
+        item.appendChild(img);
+        item.appendChild(overlay);
+        mosaicEl.appendChild(item);
+      }
+    }
+
+    initScrollReveal();
   }
 
-  // Probe each candidate
-  candidates.forEach(src => {
-    // De-duplicate
-    if (found.includes(src)) { pending--; return; }
+  // Carrega fotos reais do índice do servidor
+  listDir('fotos', /\.(jpg|jpeg|png|webp)$/i).then(real => {
+    const allCandidates = real.length ? real : photoCandidates;
+    pendingPhotos = allCandidates.length || 1;
+    if (!allCandidates.length) { pendingPhotos = 0; tryBuildMosaic(); return; }
+    allCandidates.forEach(src => {
+      const img = new Image();
+      img.onload = () => { if (!foundPhotos.includes(src)) foundPhotos.push(src); pendingPhotos--; tryBuildMosaic(); };
+      img.onerror = () => { pendingPhotos--; tryBuildMosaic(); };
+      img.src = src;
+    });
+  });
+
+  // Probe patterns reais
+  knownPatterns.forEach((src, idx) => {
     const img = new Image();
-    img.onload  = () => { if (!found.includes(src)) found.push(src); finish(); };
-    img.onerror = finish;
+    img.onload = () => { foundPatterns[idx] = src; pendingPatterns--; tryBuildMosaic(); };
+    img.onerror = () => { pendingPatterns--; tryBuildMosaic(); };
     img.src = src;
   });
 })();
@@ -193,26 +222,33 @@ if (cursor && follower && window.matchMedia('(hover: hover)').matches) {
    6. VIDEO CAROUSEL
 ════════════════════════════════════════ */
 (function initCarousel() {
-  const exts = ['mp4', 'webm', 'mov'];
-  const candidates = [];
+  const exts = ['mp4', 'MP4', 'webm', 'WEBM', 'mov', 'MOV'];
 
-  for (let i = 1; i <= 20; i++) {
+  async function listVideos() {
+    try {
+      const res = await fetch('/videos/');
+      const html = await res.text();
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      return [...doc.querySelectorAll('a[href]')]
+        .map(a => decodeURIComponent(a.getAttribute('href')))
+        .filter(h => /\.(mp4|webm|mov)$/i.test(h))
+        .map(h => `videos/${h.replace(/^.*[\/\\]/, '')}`);
+    } catch { return []; }
+  }
+
+  const fallbackCandidates = [];
+  for (let i = 1; i <= 30; i++) {
     exts.forEach(e => {
-      candidates.push(`videos/${i}.${e}`);
-      candidates.push(`videos/video${i}.${e}`);
-      candidates.push(`videos/vid${i}.${e}`);
+      fallbackCandidates.push(`videos/${i}.${e}`);
+      fallbackCandidates.push(`videos/video${i}.${e}`);
+      fallbackCandidates.push(`videos/vid${i}.${e}`);
+      fallbackCandidates.push(`videos/Video${i}.${e}`);
     });
   }
 
-  const found = [];
-  let pending = candidates.length;
+  function buildCarousel(found) {
+    if (found.length === 0) return;
 
-  function finish() {
-    pending--;
-    if (pending > 0) return;
-    if (found.length === 0) return; // keep fallback
-
-    // Build carousel
     const fallback = $('#carouselFallback');
     if (fallback) fallback.remove();
 
@@ -230,10 +266,7 @@ if (cursor && follower && window.matchMedia('(hover: hover)').matches) {
       video.loop = true;
       video.muted = true;
       video.playsInline = true;
-      if (idx === 0) {
-        video.autoplay = true;
-        video.controls = true;
-      }
+      if (idx === 0) { video.autoplay = true; video.controls = true; }
 
       card.appendChild(video);
       track.appendChild(card);
@@ -243,13 +276,25 @@ if (cursor && follower && window.matchMedia('(hover: hover)').matches) {
     setupCarouselControls(track, found.length);
   }
 
-  candidates.forEach(src => {
-    if (found.includes(src)) { pending--; return; }
-    const v = document.createElement('video');
-    v.preload = 'metadata';
-    v.onloadedmetadata = () => { if (!found.includes(src)) found.push(src); finish(); };
-    v.onerror = finish;
-    v.src = src;
+  listVideos().then(real => {
+    const allCandidates = real.length ? real : fallbackCandidates;
+    const found = [];
+    let pending = allCandidates.length;
+
+    if (!pending) return; // mantém fallback
+
+    function finish() {
+      pending--;
+      if (pending <= 0) buildCarousel(found);
+    }
+
+    allCandidates.forEach(src => {
+      const v = document.createElement('video');
+      v.preload = 'metadata';
+      v.onloadedmetadata = () => { if (!found.includes(src)) found.push(src); finish(); };
+      v.onerror = finish;
+      v.src = src;
+    });
   });
 
   function setupCarouselControls(track, total) {
