@@ -205,10 +205,12 @@ img { font-size: 0; }
   background: var(--color-accent) !important;
   color: var(--color-light) !important;
   padding: 0.7rem 1.4rem;
-  text-align: center;
   display: inline-flex !important;
   align-items: center;
   justify-content: center;
+  line-height: 1;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
   border-radius: var(--radius);
   transition: background 0.3s, transform 0.3s !important;
 }
@@ -606,33 +608,23 @@ img { font-size: 0; }
 }
 .antes-depois .section-header { text-align: center; margin-bottom: 3rem; }
 
-/* Pirâmide invertida: 2 fotos na linha de cima, 1 centrada abaixo */
 .ad-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
+  display: flex;
+  justify-content: center;
   gap: 1rem;
-  max-width: 860px;
-  margin-inline: auto;
+  flex-wrap: wrap;
 }
 .ad-grid img {
-  width: 100%; height: 360px;
+  width: 260px;
+  aspect-ratio: 9 / 16;
   object-fit: cover;
   display: block;
-  border-radius: 2px;
-}
-/* Terceira foto ocupa toda a largura mas estreita — centralizada */
-.ad-grid img:nth-child(3) {
-  grid-column: 1 / -1;
-  width: 50%;
-  margin-inline: auto;
-  height: 300px;
+  border-radius: 8px;
+  flex-shrink: 0;
 }
 
-@media (max-width: 600px) {
-  .ad-grid { grid-template-columns: 1fr; }
-  .ad-grid img { height: 260px; }
-  .ad-grid img:nth-child(3) { width: 100%; height: 260px; }
+@media (max-width: 700px) {
+  .ad-grid img { width: 160px; }
 }
 
 /* ═══════════════════════════════════════
