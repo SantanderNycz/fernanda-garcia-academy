@@ -82,11 +82,8 @@ if (cursor && follower && window.matchMedia('(hover: hover)').matches) {
     'fotos/FerGarcia-32.jpg',
     'fotos/FerGarcia-33.jpg',
     'fotos/FerGarcia-5.jpg',
-    'fotos/0F8BF81A-4EBB-451E-A444-549AA9379B66.JPG',
-    'fotos/4CDA286A-C3CC-448B-AD28-1FCC4801E60F.JPG',
     'fotos/8F465E70-7CC5-4779-A2FA-61656DDF3076.png',
     'fotos/9681C60A-B299-439D-B06A-E95BDB3B540F.JPG',
-    'fotos/F0F47D2A-F1F7-4663-925F-31E1C839A8D3.JPG',
     'fotos/IMG_1992.JPG',
     'fotos/IMG_1993.JPG',
   ];
