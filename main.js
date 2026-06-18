@@ -97,7 +97,7 @@ if (cursor && follower && window.matchMedia('(hover: hover)').matches) {
   const CARDS = [
     { type: 'dark',   patternIdx: 1, text: 'Técnica & Arte',        sub: 'Academy' },
     { type: 'accent', patternIdx: 0, text: 'Formando Profissionais', sub: '10+ anos' },
-    { type: 'dark',   patternIdx: 1, text: '+500 Alunas',            sub: 'Formadas' },
+    { type: 'dark',   patternIdx: 1, text: '+100 Alunas',            sub: 'Formadas' },
   ];
 
   const foundPhotos = [];
