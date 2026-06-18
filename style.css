@@ -586,20 +586,6 @@ img { font-size: 0; }
   padding: 2px 6px; border-radius: 3px;
 }
 
-/* Card Google Drive — thumbnail de espera */
-.drive-thumb {
-  position: absolute; inset: 0;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  gap: 0.8rem;
-  background: linear-gradient(145deg, #2a2020, #1e1818);
-  color: rgba(254,254,254,0.6);
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
-  text-align: center;
-  padding: 1rem;
-}
-.drive-thumb svg { width: 44px; height: 44px; color: var(--color-accent); }
 
 .carousel-btn {
   flex-shrink: 0; width: 48px; height: 48px;

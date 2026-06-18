@@ -75,24 +75,23 @@ if (cursor && follower && window.matchMedia('(hover: hover)').matches) {
    5. MOSAIC — fotos intercaladas com cards
 ════════════════════════════════════════ */
 (function loadMosaic() {
-  // Lê o índice de diretório — normaliza barras invertidas do Windows
-  async function listDir(dir, extsRegex) {
-    try {
-      const res = await fetch(`/${dir}/`);
-      const html = await res.text();
-      const doc = new DOMParser().parseFromString(html, 'text/html');
-      return [...doc.querySelectorAll('a[href]')]
-        .map(a => decodeURIComponent(a.getAttribute('href')))
-        .filter(h => extsRegex.test(h))
-        .map(h => {
-          // extrai só o nome do arquivo (suporta / e \)
-          const name = h.replace(/^.*[\/\\]/, '');
-          return `${dir}/${name}`;
-        });
-    } catch { return []; }
-  }
+  // Lista fixa dos arquivos reais no repositório
+  const FOTOS = [
+    'fotos/FerGarcia-1.jpg',
+    'fotos/FerGarcia-18.jpg',
+    'fotos/FerGarcia-32.jpg',
+    'fotos/FerGarcia-33.jpg',
+    'fotos/FerGarcia-5.jpg',
+    'fotos/0F8BF81A-4EBB-451E-A444-549AA9379B66.JPG',
+    'fotos/4CDA286A-C3CC-448B-AD28-1FCC4801E60F.JPG',
+    'fotos/8F465E70-7CC5-4779-A2FA-61656DDF3076.png',
+    'fotos/9681C60A-B299-439D-B06A-E95BDB3B540F.JPG',
+    'fotos/F0F47D2A-F1F7-4663-925F-31E1C839A8D3.JPG',
+    'fotos/IMG_1992.JPG',
+    'fotos/IMG_1993.JPG',
+  ];
 
-  const photoCandidates = [];
+  const photoCandidates = FOTOS;
 
   // Patterns reais na pasta logos/
   const knownPatterns = ['logos/pattern marrom.png', 'logos/pattern branco.png'];
@@ -207,29 +206,13 @@ if (cursor && follower && window.matchMedia('(hover: hover)').matches) {
    6. VIDEO CAROUSEL
 ════════════════════════════════════════ */
 (function initCarousel() {
-  const exts = ['mp4', 'MP4', 'webm', 'WEBM', 'mov', 'MOV'];
-
-  async function listVideos() {
-    try {
-      const res = await fetch('/videos/');
-      const html = await res.text();
-      const doc = new DOMParser().parseFromString(html, 'text/html');
-      return [...doc.querySelectorAll('a[href]')]
-        .map(a => decodeURIComponent(a.getAttribute('href')))
-        .filter(h => /\.(mp4|webm|mov)$/i.test(h))
-        .map(h => `videos/${h.replace(/^.*[\/\\]/, '')}`);
-    } catch { return []; }
-  }
-
-  const fallbackCandidates = [];
-  for (let i = 1; i <= 30; i++) {
-    exts.forEach(e => {
-      fallbackCandidates.push(`videos/${i}.${e}`);
-      fallbackCandidates.push(`videos/video${i}.${e}`);
-      fallbackCandidates.push(`videos/vid${i}.${e}`);
-      fallbackCandidates.push(`videos/Video${i}.${e}`);
-    });
-  }
+  // Lista fixa dos vídeos reais no repositório
+  const VIDEOS = [
+    'videos/Principal.mp4',
+    'videos/Lash 1.mp4',
+    'videos/Brown - depoimento.mp4',
+    'videos/divulg 1.mp4',
+  ];
 
   function buildCarousel(found) {
     if (found.length === 0) return;
@@ -262,26 +245,7 @@ if (cursor && follower && window.matchMedia('(hover: hover)').matches) {
     setupCarouselControls(track, found.length);
   }
 
-  listVideos().then(real => {
-    const allCandidates = real.length ? real : fallbackCandidates;
-    const found = [];
-    let pending = allCandidates.length;
-
-    if (!pending) return; // mantém fallback
-
-    function finish() {
-      pending--;
-      if (pending <= 0) buildCarousel(found);
-    }
-
-    allCandidates.forEach(src => {
-      const v = document.createElement('video');
-      v.preload = 'metadata';
-      v.onloadedmetadata = () => { if (!found.includes(src)) found.push(src); finish(); };
-      v.onerror = finish;
-      v.src = src;
-    });
-  });
+  buildCarousel(VIDEOS);
 
   function setupCarouselControls(track, total) {
     let current = 0;
@@ -293,17 +257,8 @@ if (cursor && follower && window.matchMedia('(hover: hover)').matches) {
       if (!card) return;
       card.classList.remove('active');
 
-      if (card.dataset.type === 'local') {
-        const v = card.querySelector('video');
-        if (v) { v.pause(); v.controls = false; }
-      } else if (card.dataset.type === 'drive') {
-        // Remove iframe para parar o vídeo
-        const iframe = card.querySelector('iframe');
-        if (iframe) iframe.remove();
-        // Reexibe thumbnail
-        const thumb = card.querySelector('.drive-thumb');
-        if (thumb) thumb.style.display = '';
-      }
+      const v = card.querySelector('video');
+      if (v) { v.pause(); v.controls = false; }
     }
 
     function activateCard(idx) {
@@ -311,23 +266,8 @@ if (cursor && follower && window.matchMedia('(hover: hover)').matches) {
       if (!card) return;
       card.classList.add('active');
 
-      if (card.dataset.type === 'local') {
-        const v = card.querySelector('video');
-        if (v) { v.controls = true; v.play().catch(() => {}); }
-      } else if (card.dataset.type === 'drive') {
-        // Injeta iframe ao ativar
-        const thumb = card.querySelector('.drive-thumb');
-        if (thumb) thumb.style.display = 'none';
-        const existing = card.querySelector('iframe');
-        if (!existing) {
-          const iframe = document.createElement('iframe');
-          iframe.src = `https://drive.google.com/file/d/${card.dataset.driveId}/preview`;
-          iframe.allow = 'autoplay';
-          iframe.allowFullscreen = true;
-          iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:none;';
-          card.appendChild(iframe);
-        }
-      }
+      const v = card.querySelector('video');
+      if (v) { v.controls = true; v.play().catch(() => {}); }
     }
 
     function goTo(idx) {
@@ -356,13 +296,7 @@ if (cursor && follower && window.matchMedia('(hover: hover)').matches) {
         if (!e.isIntersecting) {
           cards.forEach(c => c.querySelector('video')?.pause());
           // Também remove o iframe do Drive para parar
-          const active = cards[current];
-          if (active?.dataset.type === 'drive') {
-            const iframe = active.querySelector('iframe');
-            if (iframe) iframe.remove();
-            const thumb = active.querySelector('.drive-thumb');
-            if (thumb) thumb.style.display = '';
-          }
+          cards[current]?.querySelector('video')?.pause();
         } else {
           activateCard(current);
         }
