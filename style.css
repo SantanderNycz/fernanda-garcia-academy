@@ -549,7 +549,7 @@ img { font-size: 0; }
 
 .carousel-wrap {
   position: relative;
-  display: flex; align-items: center; gap: 1rem;
+  display: flex; align-items: center; gap: 0.25rem;
   margin-top: clamp(32px, 4vw, 56px);
 }
 .carousel {
