@@ -180,17 +180,12 @@ if (cursor && follower && window.matchMedia('(hover: hover)').matches) {
     initScrollReveal();
   }
 
-  // Carrega fotos reais do índice do servidor
-  listDir('fotos', /\.(jpg|jpeg|png|webp)$/i).then(real => {
-    const allCandidates = real.length ? real : photoCandidates;
-    pendingPhotos = allCandidates.length || 1;
-    if (!allCandidates.length) { pendingPhotos = 0; tryBuildMosaic(); return; }
-    allCandidates.forEach(src => {
-      const img = new Image();
-      img.onload = () => { if (!foundPhotos.includes(src)) foundPhotos.push(src); pendingPhotos--; tryBuildMosaic(); };
-      img.onerror = () => { pendingPhotos--; tryBuildMosaic(); };
-      img.src = src;
-    });
+  pendingPhotos = photoCandidates.length;
+  photoCandidates.forEach(src => {
+    const img = new Image();
+    img.onload = () => { if (!foundPhotos.includes(src)) foundPhotos.push(src); pendingPhotos--; tryBuildMosaic(); };
+    img.onerror = () => { pendingPhotos--; tryBuildMosaic(); };
+    img.src = src;
   });
 
   // Probe patterns reais
