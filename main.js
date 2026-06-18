@@ -345,6 +345,33 @@ window.addEventListener('load', () => {
 });
 
 /* ════════════════════════════════════════
+   7b. CARROSSEL ANTES & DEPOIS
+════════════════════════════════════════ */
+(function initAdCarousel() {
+  const carousel = document.querySelector('.ad-carousel');
+  if (!carousel) return;
+  const cards = [...carousel.querySelectorAll('.video-card')];
+  const total = cards.length;
+  let current = 0;
+
+  function goTo(idx) {
+    cards[current].classList.remove('active');
+    current = (idx + total) % total;
+    cards[current].classList.add('active');
+    const card = cards[current];
+    const offset = card.offsetLeft - carousel.offsetWidth / 2 + card.offsetWidth / 2;
+    carousel.scrollTo({ left: offset, behavior: 'smooth' });
+  }
+
+  cards.forEach((card, i) => {
+    card.addEventListener('click', () => { if (i !== current) goTo(i); });
+  });
+
+  document.querySelector('.ad-prev')?.addEventListener('click', () => goTo(current - 1));
+  document.querySelector('.ad-next')?.addEventListener('click', () => goTo(current + 1));
+})();
+
+/* ════════════════════════════════════════
    8. FORMULÁRIO → WHATSAPP
 ════════════════════════════════════════ */
 const form = $('#contactForm');
@@ -354,6 +381,7 @@ form?.addEventListener('submit', e => {
 
   const nome     = $('#nome');
   const telefone = $('#telefone');
+  const ddi      = $('#ddi');
   const mensagem = $('#mensagem');
   let valid = true;
 
@@ -379,7 +407,7 @@ form?.addEventListener('submit', e => {
     ``,
     `Meu nome é *${nome.value.trim()}* e gostaria de saber mais sobre o seu curso.`,
     ``,
-    `📱 Telefone: ${telefone.value.trim()}`,
+    `📱 Telefone: ${ddi?.value || '+55'} ${telefone.value.trim()}`,
   ];
   if (mensagem.value.trim()) {
     msgParts.push(``, `💬 Mensagem: ${mensagem.value.trim()}`);
