@@ -287,6 +287,7 @@ img { font-size: 0; }
   max-width: 760px;
   padding-inline: clamp(20px, 6vw, 60px);
   padding-top: var(--nav-h);
+  padding-bottom: 120px; /* impede sobreposição com scroll-hint */
 }
 
 .hero__eyebrow {
@@ -613,6 +614,10 @@ img { font-size: 0; }
 }
 .antes-depois .section-header { text-align: center; margin-bottom: 3rem; }
 
+/* altura explícita para garantir que position:absolute funcione em todos os browsers */
+.ad-carousel .video-card {
+  height: calc(260px * 16 / 9);
+}
 .ad-carousel .video-card img {
   position: absolute;
   inset: 0;
@@ -639,6 +644,104 @@ img { font-size: 0; }
 @media (max-width: 700px) {
   .ad-grid img { width: 160px; }
 }
+
+/* ═══════════════════════════════════════
+   FAQ
+═══════════════════════════════════════ */
+.faq { background: var(--color-light); }
+.faq .section-header { text-align: center; margin-bottom: 3rem; }
+
+.faq__list {
+  max-width: 720px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.faq__item {
+  border-bottom: 1px solid rgba(167,135,114,0.25);
+}
+.faq__question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.4rem 0;
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 300;
+  color: var(--color-dark);
+  cursor: pointer;
+}
+.faq__icon {
+  flex-shrink: 0;
+  width: 20px; height: 20px;
+  color: var(--color-accent);
+  transition: transform 0.35s var(--ease-out);
+}
+.faq__item.open .faq__icon { transform: rotate(45deg); }
+.faq__answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s var(--ease-out), padding 0.3s;
+}
+.faq__answer p {
+  padding-bottom: 1.4rem;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: rgba(40,40,41,0.7);
+}
+
+/* ═══════════════════════════════════════
+   NAVBAR — DROPDOWN CURSOS
+═══════════════════════════════════════ */
+.nav-dropdown {
+  position: relative;
+}
+.nav-dropdown > a {
+  display: flex; align-items: center; gap: 0.3rem;
+}
+.nav-dropdown__arrow {
+  width: 10px; height: 10px;
+  transition: transform 0.3s;
+}
+.nav-dropdown:hover .nav-dropdown__arrow { transform: rotate(180deg); }
+.nav-dropdown__menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%; transform: translateX(-50%);
+  background: rgba(254,254,254,0.98);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(167,135,114,0.15);
+  border-radius: 4px;
+  min-width: 200px;
+  padding: 0.5rem 0;
+  opacity: 0; pointer-events: none;
+  transform: translateX(-50%) translateY(-6px);
+  transition: opacity 0.25s, transform 0.25s;
+  box-shadow: 0 8px 32px rgba(40,40,41,0.1);
+}
+.nav-dropdown:hover .nav-dropdown__menu {
+  opacity: 1; pointer-events: all;
+  transform: translateX(-50%) translateY(0);
+}
+.nav-dropdown__menu a {
+  display: block;
+  padding: 0.7rem 1.2rem;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.1em;
+  color: var(--color-dark) !important;
+  text-transform: uppercase;
+  transition: color 0.2s, background 0.2s;
+}
+.nav-dropdown__menu a:hover { color: var(--color-accent) !important; background: rgba(167,135,114,0.06); }
+.nav-dropdown__menu a.unavailable {
+  opacity: 0.4;
+  pointer-events: none;
+}
+.nav-dropdown__menu a::after { display: none !important; }
 
 /* ═══════════════════════════════════════
    CONTATO

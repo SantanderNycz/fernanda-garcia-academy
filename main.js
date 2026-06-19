@@ -75,17 +75,12 @@ if (cursor && follower && window.matchMedia('(hover: hover)').matches) {
    5. MOSAIC — fotos intercaladas com cards
 ════════════════════════════════════════ */
 (function loadMosaic() {
-  // Lista fixa dos arquivos reais no repositório
+  // Lista fixa — ordem preservada, 4 fotos = 1 linha do mosaico
   const FOTOS = [
     'fotos/FerGarcia-1.jpg',
     'fotos/FerGarcia-18.jpg',
-    'fotos/FerGarcia-32.jpg',
-    'fotos/FerGarcia-33.jpg',
     'fotos/FerGarcia-5.jpg',
-    'fotos/8F465E70-7CC5-4779-A2FA-61656DDF3076.png',
     'fotos/9681C60A-B299-439D-B06A-E95BDB3B540F.JPG',
-    'fotos/IMG_1992.JPG',
-    'fotos/IMG_1993.JPG',
   ];
 
   const photoCandidates = FOTOS;
@@ -100,16 +95,17 @@ if (cursor && follower && window.matchMedia('(hover: hover)').matches) {
     { type: 'dark',   patternIdx: 1, text: '+100 Alunas',            sub: 'Formadas' },
   ];
 
-  const foundPhotos = [];
+  const foundPhotos = new Array(FOTOS.length).fill(null); // indexed — preserva ordem
   const foundPatterns = [];
-  let pendingPhotos = 1; // será re-atribuído após listDir
+  let pendingPhotos = FOTOS.length;
   let pendingPatterns = knownPatterns.length;
 
   function tryBuildMosaic() {
     if (pendingPhotos > 0 || pendingPatterns > 0) return;
 
     const fallback = $('#mosaicFallback');
-    if (foundPhotos.length === 0) {
+    const photos = foundPhotos.filter(Boolean);
+    if (photos.length === 0) {
       // Placeholders com animação
       $$('.mosaic-ph').forEach((el, i) => {
         el.style.transition = `opacity 0.7s ease ${i * 0.12}s, transform 0.7s ease ${i * 0.12}s`;
@@ -125,7 +121,7 @@ if (cursor && follower && window.matchMedia('(hover: hover)').matches) {
     // Intercalar fotos com cards
     let photoIdx = 0;
     let cardIdx  = 0;
-    const totalItems = foundPhotos.length + Math.min(CARDS.length, Math.floor(foundPhotos.length / 2));
+    const totalItems = photos.length + Math.min(CARDS.length, Math.floor(photos.length / 2));
 
     for (let i = 0; i < totalItems; i++) {
       // A cada 2 fotos, inserir 1 card
@@ -156,12 +152,12 @@ if (cursor && follower && window.matchMedia('(hover: hover)').matches) {
         item.appendChild(patDiv);
         item.appendChild(textDiv);
         mosaicEl.appendChild(item);
-      } else if (photoIdx < foundPhotos.length) {
+      } else if (photoIdx < photos.length) {
         const item = document.createElement('div');
         item.className = 'mosaic__item mosaic__item--photo gs-reveal';
 
         const img = document.createElement('img');
-        img.src = foundPhotos[photoIdx++];
+        img.src = photos[photoIdx++];
         img.alt = 'Portfólio Fernanda Garcia';
         img.loading = 'lazy';
 
@@ -177,10 +173,9 @@ if (cursor && follower && window.matchMedia('(hover: hover)').matches) {
     initScrollReveal();
   }
 
-  pendingPhotos = photoCandidates.length;
-  photoCandidates.forEach(src => {
+  photoCandidates.forEach((src, idx) => {
     const img = new Image();
-    img.onload = () => { if (!foundPhotos.includes(src)) foundPhotos.push(src); pendingPhotos--; tryBuildMosaic(); };
+    img.onload = () => { foundPhotos[idx] = src; pendingPhotos--; tryBuildMosaic(); };
     img.onerror = () => { pendingPhotos--; tryBuildMosaic(); };
     img.src = src;
   });
@@ -281,6 +276,9 @@ if (cursor && follower && window.matchMedia('(hover: hover)').matches) {
     $('#videoPrev')?.addEventListener('click', () => goTo(current - 1));
     $('#videoNext')?.addEventListener('click', () => goTo(current + 1));
 
+    // Centra o card ativo na carga (corrige corte no mobile)
+    requestAnimationFrame(() => goTo(0));
+
     // Pause ao sair do viewport
     const section = document.getElementById('videos');
     if (section) {
@@ -369,10 +367,35 @@ window.addEventListener('load', () => {
 
   document.querySelector('.ad-prev')?.addEventListener('click', () => goTo(current - 1));
   document.querySelector('.ad-next')?.addEventListener('click', () => goTo(current + 1));
+
+  requestAnimationFrame(() => goTo(0));
 })();
 
 /* ════════════════════════════════════════
-   8. FORMULÁRIO → WHATSAPP
+   8. FAQ ACCORDION
+════════════════════════════════════════ */
+$$('.faq__question').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.faq__item');
+    const answer = item.querySelector('.faq__answer');
+    const isOpen = item.classList.contains('open');
+
+    // Fecha todos
+    $$('.faq__item.open').forEach(el => {
+      el.classList.remove('open');
+      el.querySelector('.faq__answer').style.maxHeight = '0';
+    });
+
+    // Abre este se estava fechado
+    if (!isOpen) {
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  });
+});
+
+/* ════════════════════════════════════════
+   9. FORMULÁRIO → WHATSAPP
 ════════════════════════════════════════ */
 const form = $('#contactForm');
 
