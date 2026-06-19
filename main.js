@@ -86,7 +86,8 @@ if (cursor && follower && window.matchMedia('(hover: hover)').matches) {
   const photoCandidates = FOTOS;
 
   // Patterns reais na pasta logos/
-  const knownPatterns = ['logos/pattern marrom.png', 'logos/pattern branco.png'];
+  // idx 0 = Preto → card accent (fundo marrom); idx 1 = Branco → card dark (fundo escuro)
+  const knownPatterns = ['logos/Pattern-Preto.png', 'logos/Pattern-Branco.png'];
 
   // Cards de cor sólida que aparecem no mosaico (intercalados)
   const CARDS = [
