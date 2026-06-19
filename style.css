@@ -931,7 +931,7 @@ img {
 ═══════════════════════════════════════ */
 .antes-depois {
   background: var(--color-light);
-  padding: 5rem 0 8rem;
+  padding: 8rem 0 1rem 0;
   overflow: hidden;
 }
 .antes-depois .section-header {
@@ -1002,7 +1002,7 @@ img {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1rem 0;
+  padding: 0rem 0 3rem 0;
   text-align: left;
   font-family: var(--font-body);
   font-size: clamp(0.85rem, 1.5vw, 0.95rem);
