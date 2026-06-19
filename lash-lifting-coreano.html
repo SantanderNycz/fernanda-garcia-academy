@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lash Lifting Método Coreano — Fernanda Garcia Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .curso-page { --page-accent: var(--color-accent); }
+
+    .curso-hero {
+      background: var(--color-dark);
+      padding: clamp(130px, 18vw, 200px) 0 clamp(60px, 8vw, 90px);
+    }
+    .curso-hero__inner { max-width: 800px; }
+    .curso-hero__tag {
+      display: inline-block;
+      font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--color-accent); margin-bottom: 1.2rem;
+    }
+    .curso-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 300; line-height: 1.1;
+      color: var(--color-light); margin-bottom: 1.5rem;
+    }
+    .curso-hero h1 em { color: var(--color-accent); }
+    .curso-hero__sub {
+      font-size: 0.85rem; line-height: 1.8;
+      color: rgba(254,254,254,0.45); max-width: 560px;
+    }
+
+    .curso-body { background: var(--color-light); }
+    .curso-body__grid {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: clamp(40px, 6vw, 80px);
+      align-items: start;
+    }
+    @media (max-width: 860px) {
+      .curso-body__grid { grid-template-columns: 1fr; }
+      .curso-sidebar { order: -1; }
+    }
+
+    .curso-desc h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 300; line-height: 1.2;
+      color: var(--color-dark); margin-bottom: 1.2rem;
+    }
+    .curso-desc h2 em { color: var(--color-accent); }
+    .curso-desc p {
+      font-size: 0.9rem; line-height: 1.9;
+      color: rgba(40,40,41,0.7); margin-bottom: 1rem;
+    }
+
+    .pilares { margin: 2rem 0; display: flex; flex-direction: column; gap: 1.2rem; }
+    .pilar {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1.2rem 1.4rem;
+      background: rgba(167,135,114,0.06);
+      border-left: 2px solid var(--color-accent);
+      border-radius: 0 4px 4px 0;
+    }
+    .pilar__num {
+      flex-shrink: 0;
+      font-family: var(--font-display);
+      font-size: 1.8rem; font-weight: 300;
+      color: var(--color-accent); line-height: 1;
+    }
+    .pilar__text strong {
+      display: block;
+      font-size: 0.8rem; font-weight: 500;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--color-dark); margin-bottom: 0.3rem;
+    }
+    .pilar__text p {
+      font-size: 0.82rem; line-height: 1.7;
+      color: rgba(40,40,41,0.65); margin: 0;
+    }
+
+    .aviso-nivel {
+      display: flex; align-items: flex-start; gap: 0.8rem;
+      padding: 1rem 1.2rem;
+      background: rgba(167,135,114,0.1);
+      border-radius: 4px; margin: 1.5rem 0;
+      font-size: 0.82rem; line-height: 1.6;
+      color: rgba(40,40,41,0.7);
+    }
+    .aviso-nivel svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--color-accent); margin-top: 1px; }
+
+    .curso-modulos { margin-top: 2.5rem; }
+    .curso-modulos h3 {
+      font-family: var(--font-body);
+      font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--color-accent); margin-bottom: 1.2rem;
+    }
+    .curso-modulos ul { list-style: none; display: flex; flex-direction: column; gap: 0; }
+    .curso-modulos li {
+      display: flex; align-items: flex-start; gap: 0.8rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid rgba(167,135,114,0.15);
+      font-size: 0.85rem; line-height: 1.5; color: var(--color-dark);
+    }
+    .curso-modulos li::before {
+      content: ''; flex-shrink: 0;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--color-accent); margin-top: 0.45rem;
+    }
+
+    .curso-sidebar {
+      position: sticky; top: calc(var(--nav-h) + 24px);
+      background: var(--color-dark); border-radius: 4px;
+      padding: 2rem; color: var(--color-light);
+    }
+    .curso-sidebar__label {
+      font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--color-accent); display: block; margin-bottom: 0.8rem;
+    }
+    .curso-sidebar h3 {
+      font-family: var(--font-display);
+      font-size: 1.4rem; font-weight: 300;
+      margin-bottom: 1.5rem; line-height: 1.2;
+    }
+    .curso-sidebar__info {
+      display: flex; flex-direction: column; gap: 0.8rem;
+      margin-bottom: 1.8rem; font-size: 0.8rem;
+      color: rgba(254,254,254,0.55);
+    }
+    .curso-sidebar__info span { display: flex; align-items: center; gap: 0.5rem; }
+    .curso-sidebar__info svg { width: 14px; height: 14px; flex-shrink: 0; color: var(--color-accent); }
+    .curso-sidebar .btn { width: 100%; justify-content: center; margin-bottom: 0.8rem; }
+    .curso-sidebar__note {
+      font-size: 0.72rem; color: rgba(254,254,254,0.3);
+      text-align: center; line-height: 1.6;
+    }
+
+    .back-nav {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(254,254,254,0.4); transition: color 0.3s; margin-bottom: 2rem;
+    }
+    .back-nav:hover { color: var(--color-accent); }
+    .back-nav svg { width: 14px; height: 14px; }
+  </style>
+</head>
+<body class="curso-page">
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursorFollower"></div>
+
+  <header class="navbar scrolled" id="navbar">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__logo">
+        <img class="nav-logo nav-logo--dark" src="logos/marca d_agua 3.png" alt="Fernanda Garcia Academy" onerror="this.style.visibility='hidden'" />
+      </a>
+      <nav class="navbar__nav">
+        <a href="index.html#sobre" style="color:var(--color-dark)">Sobre</a>
+        <a href="index.html#portfolio" style="color:var(--color-dark)">Portfólio</a>
+        <a href="index.html#videos" style="color:var(--color-dark)">Vídeos</a>
+        <a href="cursos.html" style="color:var(--color-accent)">Cursos</a>
+        <a href="index.html#contato" class="nav-cta">Me inscrever</a>
+      </nav>
+      <button class="navbar__burger" id="burger" aria-label="Menu">
+        <span style="background:var(--color-dark)"></span>
+        <span style="background:var(--color-dark)"></span>
+        <span style="background:var(--color-dark)"></span>
+      </button>
+    </div>
+    <div class="navbar__mobile" id="mobileNav">
+      <a href="index.html#sobre" class="mobile-link">Sobre</a>
+      <a href="index.html#portfolio" class="mobile-link">Portfólio</a>
+      <a href="index.html#videos" class="mobile-link">Vídeos</a>
+      <a href="cursos.html" class="mobile-link">Cursos</a>
+      <a href="index.html#contato" class="mobile-link mobile-cta">Me inscrever</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="curso-hero">
+      <div class="container">
+        <div class="curso-hero__inner">
+          <a href="cursos.html" class="back-nav">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+            Todos os cursos
+          </a>
+          <span class="curso-hero__tag">Curso de aperfeiçoamento · Nível avançado</span>
+          <h1>Lash Lifting<br /><em>Método Coreano</em></h1>
+          <p class="curso-hero__sub">Para profissionais que já dominam a técnica tradicional e querem elevar eficiência, velocidade e segurança ao próximo nível.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="curso-body">
+      <div class="container">
+        <div class="curso-body__grid">
+
+          <div class="curso-desc">
+            <h2>O Lash Lifting no <em>Método Coreano</em></h2>
+            <p>O Lash Lifting no Método Coreano é uma especialização avançada voltada para profissionais que já dominam a técnica tradicional e desejam alcançar o próximo nível de eficiência e controle em mesa. O resultado estético entrega o mesmo visual impecável e de alto impacto do método convencional — fios curvados, alinhados e destacados — mas a grande revolução está na dinâmica do atendimento e na segurança do processo.</p>
+
+            <div class="aviso-nivel">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <span>Este curso é voltado exclusivamente para profissionais que já possuem experiência no método tradicional de Lash Lifting. O pré-requisito é a bagagem prática adquirida no método convencional.</span>
+            </div>
+
+            <p>Esta proposta avançada destaca-se por três pilares comerciais e técnicos indispensáveis:</p>
+
+            <div class="pilares">
+              <div class="pilar">
+                <span class="pilar__num">01</span>
+                <div class="pilar__text">
+                  <strong>Faturamento Escalável pelo Menor Tempo</strong>
+                  <p>Com uma metodologia ágil, o tempo de procedimento é significativamente reduzido, permitindo que você aumente o fluxo de atendimentos diários e multiplique o faturamento.</p>
+                </div>
+              </div>
+              <div class="pilar">
+                <span class="pilar__num">02</span>
+                <div class="pilar__text">
+                  <strong>Controle Direto e Segurança Extrema</strong>
+                  <p>O método baseia-se em uma aplicação onde os fios são atingidos pelo produto de forma direta, possibilitando controle muito maior sobre a ação da química — tornando o procedimento extremamente seguro e previsível.</p>
+                </div>
+              </div>
+              <div class="pilar">
+                <span class="pilar__num">03</span>
+                <div class="pilar__text">
+                  <strong>Exigência de Expertise Prática</strong>
+                  <p>Por se tratar de uma técnica de alta precisão e agilidade, este não é um curso para iniciantes. Para se especializar no Método Coreano, o profissional já deve dominar o método tradicional.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="curso-modulos">
+              <h3>Conteúdo do curso</h3>
+              <ul>
+                <li>A Transição do Tradicional para o Coreano</li>
+                <li>A Dinâmica da Aplicação Direta</li>
+                <li>Tipos de Cílios Aptos para a Técnica</li>
+                <li>Cílios Limítrofes</li>
+                <li>Análise Avançada de Moldes</li>
+                <li>Acoplagem de Alta Velocidade</li>
+                <li>Ação do Produto na Aplicação Direta</li>
+                <li>O Cronômetro de Precisão</li>
+                <li>Leitura Visual Avançada</li>
+                <li>Protocolo de Biossegurança Avançado</li>
+              </ul>
+            </div>
+          </div>
+
+          <aside class="curso-sidebar">
+            <span class="curso-sidebar__label">Fernanda Garcia Academy</span>
+            <h3>Lash Lifting — Método Coreano</h3>
+            <div class="curso-sidebar__info">
+              <span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                Resultado dura 45–60 dias
+              </span>
+              <span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                Nível avançado
+              </span>
+              <span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+                Pré-requisito: método tradicional
+              </span>
+            </div>
+            <a href="index.html#contato" class="btn btn--primary">Quero me inscrever</a>
+            <p class="curso-sidebar__note">Entraremos em contato pelo WhatsApp com todos os detalhes.</p>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer style="background:var(--color-dark);padding:2rem;text-align:center;">
+    <p style="font-size:0.72rem;letter-spacing:0.15em;color:rgba(254,254,254,0.3);text-transform:uppercase;">© <span id="year"></span> Fernanda Garcia Academy</p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

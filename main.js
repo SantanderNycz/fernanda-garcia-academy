@@ -94,7 +94,7 @@ if (cursor && follower && window.matchMedia("(hover: hover)").matches) {
 
   // Patterns reais na pasta logos/
   // idx 0 = Preto → card accent (fundo marrom); idx 1 = Branco → card dark (fundo escuro)
-  const knownPatterns = ["logos/Pattern-Preto.png", "logos/Pattern-Branco.png"];
+  const knownPatterns = ["logos/pattern preto transp.png", "logos/pattern branco transp.png"];
 
   // Cards de cor sólida que aparecem no mosaico (intercalados)
   const CARDS = [

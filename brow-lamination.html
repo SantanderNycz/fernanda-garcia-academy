@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brow Lamination + Design Estratégico — Fernanda Garcia Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .curso-page { --page-accent: var(--color-accent); }
+
+    .curso-hero {
+      background: var(--color-dark);
+      padding: clamp(130px, 18vw, 200px) 0 clamp(60px, 8vw, 90px);
+    }
+    .curso-hero__inner { max-width: 800px; }
+    .curso-hero__tag {
+      display: inline-block;
+      font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--color-accent); margin-bottom: 1.2rem;
+    }
+    .curso-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 300; line-height: 1.1;
+      color: var(--color-light); margin-bottom: 1.5rem;
+    }
+    .curso-hero h1 em { color: var(--color-accent); }
+    .curso-hero__sub {
+      font-size: 0.85rem; line-height: 1.8;
+      color: rgba(254,254,254,0.45); max-width: 560px;
+    }
+
+    .curso-body { background: var(--color-light); }
+    .curso-body__grid {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: clamp(40px, 6vw, 80px);
+      align-items: start;
+    }
+    @media (max-width: 860px) {
+      .curso-body__grid { grid-template-columns: 1fr; }
+      .curso-sidebar { order: -1; }
+    }
+
+    .curso-desc h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 300; line-height: 1.2;
+      color: var(--color-dark); margin-bottom: 1.2rem;
+    }
+    .curso-desc h2 em { color: var(--color-accent); }
+    .curso-desc p {
+      font-size: 0.9rem; line-height: 1.9;
+      color: rgba(40,40,41,0.7); margin-bottom: 1rem;
+    }
+
+    .curso-modulos { margin-top: 2.5rem; }
+    .curso-modulos h3 {
+      font-family: var(--font-body);
+      font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--color-accent); margin-bottom: 1.2rem;
+    }
+    .curso-modulos ul { list-style: none; display: flex; flex-direction: column; gap: 0; }
+    .curso-modulos li {
+      display: flex; align-items: flex-start; gap: 0.8rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid rgba(167,135,114,0.15);
+      font-size: 0.85rem; line-height: 1.5; color: var(--color-dark);
+    }
+    .curso-modulos li::before {
+      content: ''; flex-shrink: 0;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--color-accent); margin-top: 0.45rem;
+    }
+
+    .curso-sidebar {
+      position: sticky; top: calc(var(--nav-h) + 24px);
+      background: var(--color-dark); border-radius: 4px;
+      padding: 2rem; color: var(--color-light);
+    }
+    .curso-sidebar__label {
+      font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--color-accent); display: block; margin-bottom: 0.8rem;
+    }
+    .curso-sidebar h3 {
+      font-family: var(--font-display);
+      font-size: 1.4rem; font-weight: 300;
+      margin-bottom: 1.5rem; line-height: 1.2;
+    }
+    .curso-sidebar__info {
+      display: flex; flex-direction: column; gap: 0.8rem;
+      margin-bottom: 1.8rem; font-size: 0.8rem;
+      color: rgba(254,254,254,0.55);
+    }
+    .curso-sidebar__info span { display: flex; align-items: center; gap: 0.5rem; }
+    .curso-sidebar__info svg { width: 14px; height: 14px; flex-shrink: 0; color: var(--color-accent); }
+    .curso-sidebar .btn { width: 100%; justify-content: center; margin-bottom: 0.8rem; }
+    .curso-sidebar__note {
+      font-size: 0.72rem; color: rgba(254,254,254,0.3);
+      text-align: center; line-height: 1.6;
+    }
+
+    .back-nav {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(254,254,254,0.4); transition: color 0.3s; margin-bottom: 2rem;
+    }
+    .back-nav:hover { color: var(--color-accent); }
+    .back-nav svg { width: 14px; height: 14px; }
+  </style>
+</head>
+<body class="curso-page">
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursorFollower"></div>
+
+  <header class="navbar scrolled" id="navbar">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__logo">
+        <img class="nav-logo nav-logo--dark" src="logos/marca d_agua 3.png" alt="Fernanda Garcia Academy" onerror="this.style.visibility='hidden'" />
+      </a>
+      <nav class="navbar__nav">
+        <a href="index.html#sobre" style="color:var(--color-dark)">Sobre</a>
+        <a href="index.html#portfolio" style="color:var(--color-dark)">Portfólio</a>
+        <a href="index.html#videos" style="color:var(--color-dark)">Vídeos</a>
+        <a href="cursos.html" style="color:var(--color-accent)">Cursos</a>
+        <a href="index.html#contato" class="nav-cta">Me inscrever</a>
+      </nav>
+      <button class="navbar__burger" id="burger" aria-label="Menu">
+        <span style="background:var(--color-dark)"></span>
+        <span style="background:var(--color-dark)"></span>
+        <span style="background:var(--color-dark)"></span>
+      </button>
+    </div>
+    <div class="navbar__mobile" id="mobileNav">
+      <a href="index.html#sobre" class="mobile-link">Sobre</a>
+      <a href="index.html#portfolio" class="mobile-link">Portfólio</a>
+      <a href="index.html#videos" class="mobile-link">Vídeos</a>
+      <a href="cursos.html" class="mobile-link">Cursos</a>
+      <a href="index.html#contato" class="mobile-link mobile-cta">Me inscrever</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="curso-hero">
+      <div class="container">
+        <div class="curso-hero__inner">
+          <a href="cursos.html" class="back-nav">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+            Todos os cursos
+          </a>
+          <span class="curso-hero__tag">Curso completo</span>
+          <h1>Brow Lamination +<br /><em>Design Estratégico</em></h1>
+          <p class="curso-hero__sub">Redefina, alinhe e projete sobrancelhas personalizadas — unindo laminação e design visagista para resultados que duram de 4 a 6 semanas.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="curso-body">
+      <div class="container">
+        <div class="curso-body__grid">
+
+          <div class="curso-desc">
+            <h2>O que é o <em>Brow Lamination</em> com Design Estratégico?</h2>
+            <p>O Brow Lamination é um procedimento estético avançado que redefine, alinha e disciplina os pelos naturais das sobrancelhas. Através de uma técnica de alinhamento e do uso de produtos específicos que alteram a estrutura do fio de forma segura, os pelos tornam-se maleáveis, permitindo que fiquem penteados na direção desejada.</p>
+            <p>O grande diferencial deste procedimento é a sua união com o Design de Sobrancelhas Estratégico, que é a nossa assinatura. Longe de moldes prontos ou formatos artificiais, este estilo de design é totalmente personalizado para cada rosto, respeitando as linhas naturais, a anatomia e a identidade única de cada cliente, com foco absoluto na naturalidade.</p>
+            <p>O resultado é um efeito visual imediato de sobrancelhas mais cheias, robustas e simétricas, sendo a solução perfeita tanto para cobrir falhas quanto para domar pelos desalinhados, rebeldes ou que nascem para baixo. Aliando a maleabilidade do lamination ao visagismo do design estratégico, o procedimento proporciona desde o visual moderno das fluffy brows (sobrancelhas selvagens e volumosas) até um estilo mais clássico, sofisticado e discreto — sempre sob medida para a cliente e mantendo sua durabilidade por 4 a 6 semanas.</p>
+
+            <div class="curso-modulos">
+              <h3>Conteúdo do curso</h3>
+              <ul>
+                <li>Introdução ao Brow Lamination</li>
+                <li>Comparações com Outras Profissões Estéticas</li>
+                <li>O Ciclo de Crescimento dos Fios</li>
+                <li>Química dos Produtos Utilizados</li>
+                <li>Segurança e Regulamentação</li>
+                <li>Segurança e Prevenção de Erros Comuns</li>
+                <li>Contraindicações e Patologias</li>
+                <li>Fichas de Anamnese e Controle de Cliente</li>
+                <li>Teste de Reação Alérgica</li>
+                <li>Materiais Necessários</li>
+                <li>Biossegurança</li>
+                <li>Análise de Formato e Visagismo</li>
+                <li>Etapas Práticas de Mapping e Brow Lamination</li>
+              </ul>
+            </div>
+          </div>
+
+          <aside class="curso-sidebar">
+            <span class="curso-sidebar__label">Fernanda Garcia Academy</span>
+            <h3>Brow Lamination + Design Estratégico</h3>
+            <div class="curso-sidebar__info">
+              <span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                Resultado dura 4–6 semanas
+              </span>
+              <span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                Nível iniciante ao intermediário
+              </span>
+              <span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                Material didático completo
+              </span>
+            </div>
+            <a href="index.html#contato" class="btn btn--primary">Quero me inscrever</a>
+            <p class="curso-sidebar__note">Entraremos em contato pelo WhatsApp com todos os detalhes.</p>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer style="background:var(--color-dark);padding:2rem;text-align:center;">
+    <p style="font-size:0.72rem;letter-spacing:0.15em;color:rgba(254,254,254,0.3);text-transform:uppercase;">© <span id="year"></span> Fernanda Garcia Academy</p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
