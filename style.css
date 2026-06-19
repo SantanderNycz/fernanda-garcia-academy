@@ -197,6 +197,10 @@ img { font-size: 0; }
 .navbar__nav a:hover { color: var(--color-accent); }
 .navbar__nav a:hover::after { width: 100%; }
 
+.navbar__nav a:not(.nav-cta) {
+  padding-bottom: 2px;
+}
+
 /* Quando navbar tem fundo sólido, links viram escuro */
 .navbar.scrolled .navbar__nav a { color: var(--color-dark); }
 .navbar.scrolled .navbar__nav a:hover { color: var(--color-accent); }
