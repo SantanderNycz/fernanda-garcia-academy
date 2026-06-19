@@ -77,10 +77,10 @@ if (cursor && follower && window.matchMedia('(hover: hover)').matches) {
 (function loadMosaic() {
   // Lista fixa — ordem preservada, 4 fotos = 1 linha do mosaico
   const FOTOS = [
-    'fotos/FerGarcia-1.jpg',
-    'fotos/FerGarcia-18.jpg',
-    'fotos/FerGarcia-5.jpg',
-    'fotos/9681C60A-B299-439D-B06A-E95BDB3B540F.JPG',
+    'fotos/Mosaico 1.png',
+    'fotos/Mosaico 2.JPG',
+    'fotos/Mosaico 3.JPG',
+    'fotos/Mosaico 4.JPG',
   ];
 
   const photoCandidates = FOTOS;
