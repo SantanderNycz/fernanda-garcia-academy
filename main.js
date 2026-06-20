@@ -103,7 +103,7 @@ if (cursor && follower && window.matchMedia("(hover: hover)").matches) {
       type: "accent",
       patternIdx: 0,
       text: "Formando Profissionais",
-      sub: "10+ anos",
+      sub: "+10 anos",
     },
     { type: "dark", patternIdx: 1, text: "+100 Alunas", sub: "Formadas" },
   ];
