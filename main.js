@@ -152,9 +152,9 @@ if (cursor && follower && window.matchMedia("(hover: hover)").matches) {
         if (patSrc) {
           patDiv.className = "card__pattern";
           patDiv.style.backgroundImage = `url('${patSrc}')`;
-          patDiv.style.backgroundSize = "900px";
+          patDiv.style.backgroundSize = "1400px";
           patDiv.style.backgroundRepeat = "repeat";
-          patDiv.style.opacity = "0.20";
+          patDiv.style.opacity = "0.08";
         } else {
           patDiv.className = `card__pattern card__pattern--${card.patternIdx === 0 ? "lines" : "dots"}`;
         }
