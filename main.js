@@ -345,146 +345,183 @@ if (cursor && follower && window.matchMedia("(hover: hover)").matches) {
 })();
 
 /* ════════════════════════════════════════
-   6. VIDEO CAROUSEL
+   6. VIDEO CAROUSEL — INFINITO
 ════════════════════════════════════════ */
 (function initCarousel() {
-  // Lista fixa dos vídeos reais no repositório
-  const VIDEOS = [
-    "videos/Principal.mp4",
-    "videos/Lash 1.mp4",
-    "videos/Brow - depoimento.mp4",
-    "videos/divulg 1.mp4",
+  // Todos os arquivos da pasta videos/
+  const ITEMS = [
+    { type: "video", src: "videos/Principal.mp4" },
+    { type: "video", src: "videos/Lash 1.mp4" },
+    { type: "video", src: "videos/Brow - depoimento.mp4" },
+    { type: "video", src: "videos/divulg 1.mp4" },
+    { type: "video", src: "videos/Brow-lam.mp4" },
+    { type: "video", src: "videos/BROW LAMINATION.mp4" },
+    { type: "video", src: "videos/design sob.mp4" },
+    { type: "video", src: "videos/Pagina - Lash.mp4" },
+    { type: "video", src: "videos/Pagina - Brow.mp4" },
+    { type: "video", src: "videos/Pagina - Lash Coreano.mp4" },
+    { type: "photo", src: "videos/antes-depois1.JPG" },
+    { type: "photo", src: "videos/antes-depois2.JPG" },
+    { type: "photo", src: "videos/antes-depois3.JPG" },
   ];
 
-  // Fotos antes & depois — entram no mesmo carrossel, depois dos vídeos
-  const FOTOS_AD = [
-    "fotos/antes-depois1.JPG",
-    "fotos/antes-depois2.JPG",
-    "fotos/antes-depois3.JPG",
-  ];
+  const fallback = $("#carouselFallback");
+  if (fallback) fallback.remove();
 
-  function buildCarousel(found) {
-    if (found.length === 0 && FOTOS_AD.length === 0) return;
+  const carousel = $("#videoCarousel");
+  if (!carousel) return;
 
-    const fallback = $("#carouselFallback");
-    if (fallback) fallback.remove();
+  const CARD_W = 260;
+  const GAP = 24;
+  const STEP = CARD_W + GAP;
 
-    const carousel = $("#videoCarousel");
-    const track = document.createElement("div");
-    track.className = "carousel__track";
+  // Cria um card DOM a partir de um item
+  function makeCard(item, isActive) {
+    const card = document.createElement("div");
+    card.className = "video-card" + (isActive ? " active" : "");
 
-    found.forEach((src, idx) => {
-      const card = document.createElement("div");
-      card.className = "video-card" + (idx === 0 ? " active" : "");
-      card.dataset.type = "local";
-
+    if (item.type === "video") {
       const video = document.createElement("video");
-      video.src = src;
+      video.src = item.src;
       video.preload = "metadata";
       video.loop = true;
       video.muted = true;
       video.playsInline = true;
-      if (idx === 0) {
+      if (isActive) {
         video.autoplay = true;
         video.controls = true;
       }
-
       card.appendChild(video);
-      track.appendChild(card);
-    });
-
-    // Cards de foto (antes & depois) após os vídeos
-    FOTOS_AD.forEach((src, idx) => {
-      const card = document.createElement("div");
-      card.className =
-        "video-card" + (found.length === 0 && idx === 0 ? " active" : "");
-      card.dataset.type = "photo";
-
+    } else {
       const img = document.createElement("img");
-      img.src = src;
-      img.alt = "Antes e depois " + (idx + 1);
-
+      img.src = item.src;
+      img.alt = "Antes e depois";
       card.appendChild(img);
-      track.appendChild(card);
-    });
-
-    carousel.appendChild(track);
-    setupCarouselControls(track, found.length + FOTOS_AD.length);
+    }
+    return card;
   }
 
-  buildCarousel(VIDEOS);
+  const total = ITEMS.length;
+  const track = document.createElement("div");
+  track.className = "carousel__track";
+  track.style.transition = "none";
 
-  function setupCarouselControls(track, total) {
-    let current = 0;
-    const carousel = track.parentElement;
-    const cards = $$(".video-card", carousel);
+  // Estrutura infinita: [clone_last] [item0…itemN] [clone_first]
+  const cloneLast = makeCard(ITEMS[total - 1], false);
+  cloneLast.dataset.clone = "last";
+  track.appendChild(cloneLast);
 
-    function deactivateCurrent() {
-      const card = cards[current];
-      if (!card) return;
-      card.classList.remove("active");
+  const realCards = ITEMS.map((item, i) => {
+    const card = makeCard(item, i === 0);
+    track.appendChild(card);
+    return card;
+  });
 
-      const v = card.querySelector("video");
-      if (v) {
+  const cloneFirst = makeCard(ITEMS[0], false);
+  cloneFirst.dataset.clone = "first";
+  track.appendChild(cloneFirst);
+
+  carousel.appendChild(track);
+
+  // Índice no track: 0 = cloneLast, 1…total = reais, total+1 = cloneFirst
+  let trackIdx = 1; // começa no real[0]
+  let isAnimating = false;
+
+  function getTranslateX(idx) {
+    return carousel.offsetWidth / 2 - CARD_W / 2 - idx * STEP;
+  }
+
+  function setPos(idx, animate) {
+    track.style.transition = animate
+      ? "transform 0.5s var(--ease-out)"
+      : "none";
+    track.style.transform = `translateX(${getTranslateX(idx)}px)`;
+  }
+
+  function allCards() {
+    return [...track.querySelectorAll(".video-card")];
+  }
+
+  function activateIdx(idx) {
+    // idx no track (inclui clones)
+    allCards().forEach((c, i) => {
+      const active = i === idx;
+      c.classList.toggle("active", active);
+      const v = c.querySelector("video");
+      if (!v) return;
+      if (active) {
+        v.controls = true;
+        v.play().catch(() => {});
+      } else {
         v.pause();
         v.controls = false;
       }
-    }
-
-    function activateCard(idx) {
-      const card = cards[idx];
-      if (!card) return;
-      card.classList.add("active");
-
-      const v = card.querySelector("video");
-      if (v) {
-        v.controls = true;
-        v.play().catch(() => {});
-      }
-    }
-
-    function goTo(idx) {
-      deactivateCurrent();
-      current = (idx + total) % total;
-      activateCard(current);
-
-      // Centraliza
-      const card = cards[current];
-      const offset =
-        card.offsetLeft - carousel.offsetWidth / 2 + card.offsetWidth / 2;
-      carousel.scrollTo({ left: offset, behavior: "smooth" });
-    }
-
-    // Clique em card lateral ativa
-    cards.forEach((card, i) => {
-      card.addEventListener("click", () => {
-        if (i !== current) goTo(i);
-      });
     });
+  }
 
-    $("#videoPrev")?.addEventListener("click", () => goTo(current - 1));
-    $("#videoNext")?.addEventListener("click", () => goTo(current + 1));
+  function goTo(idx) {
+    if (isAnimating) return;
+    isAnimating = true;
+    trackIdx = idx;
+    activateIdx(trackIdx);
+    setPos(trackIdx, true);
+  }
 
-    // Centra o card ativo na carga (corrige corte no mobile)
-    requestAnimationFrame(() => goTo(0));
-
-    // Pause ao sair do viewport
-    const section = document.getElementById("videos");
-    if (section) {
-      const io = new IntersectionObserver(
-        ([e]) => {
-          if (!e.isIntersecting) {
-            cards.forEach((c) => c.querySelector("video")?.pause());
-            // Também remove o iframe do Drive para parar
-            cards[current]?.querySelector("video")?.pause();
-          } else {
-            activateCard(current);
-          }
-        },
-        { threshold: 0.2 },
-      );
-      io.observe(section);
+  // Só responde à transição do próprio track, ignorando eventos borbulhados dos cards filhos
+  track.addEventListener("transitionend", (e) => {
+    if (e.target !== track) return;
+    isAnimating = false;
+    if (trackIdx === 0) {
+      trackIdx = total;
+      setPos(trackIdx, false);
+    } else if (trackIdx === total + 1) {
+      trackIdx = 1;
+      setPos(trackIdx, false);
     }
+  });
+
+  $("#videoPrev")?.addEventListener("click", () => goTo(trackIdx - 1));
+  $("#videoNext")?.addEventListener("click", () => goTo(trackIdx + 1));
+
+  // Clique em card lateral
+  allCards().forEach((card, i) => {
+    card.addEventListener("click", () => {
+      if (i !== trackIdx) goTo(i);
+    });
+  });
+
+  // Inicializa após layout estar pronto (evita offsetWidth=0)
+  function initPosition() {
+    setPos(trackIdx, false);
+    activateIdx(trackIdx);
+  }
+  if (document.readyState === "complete") {
+    initPosition();
+  } else {
+    window.addEventListener("load", initPosition, { once: true });
+  }
+
+  // Recalcula posição se janela redimensionada
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => setPos(trackIdx, false), 150);
+  });
+
+  // Pausa ao sair do viewport
+  const section = document.getElementById("videos");
+  if (section) {
+    new IntersectionObserver(
+      ([e]) => {
+        if (!e.isIntersecting) {
+          allCards().forEach((c) => c.querySelector("video")?.pause());
+        } else {
+          const v = allCards()[trackIdx]?.querySelector("video");
+          if (v) v.play().catch(() => {});
+        }
+      },
+      { threshold: 0.2 },
+    ).observe(section);
   }
 })();
 

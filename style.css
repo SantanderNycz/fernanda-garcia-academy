@@ -858,14 +858,14 @@ img {
   overflow: hidden;
   display: flex;
   align-items: center;
-  justify-content: center;
   min-height: 600px;
 }
 .carousel__track {
   display: flex;
   align-items: center;
   gap: 24px;
-  transition: transform 0.6s var(--ease-out);
+  flex-shrink: 0;
+  will-change: transform;
 }
 
 .video-card {
