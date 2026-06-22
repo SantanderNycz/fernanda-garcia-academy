@@ -356,8 +356,15 @@ if (cursor && follower && window.matchMedia("(hover: hover)").matches) {
     "videos/divulg 1.mp4",
   ];
 
+  // Fotos antes & depois — entram no mesmo carrossel, depois dos vídeos
+  const FOTOS_AD = [
+    "fotos/antes-depois1.JPG",
+    "fotos/antes-depois2.JPG",
+    "fotos/antes-depois3.JPG",
+  ];
+
   function buildCarousel(found) {
-    if (found.length === 0) return;
+    if (found.length === 0 && FOTOS_AD.length === 0) return;
 
     const fallback = $("#carouselFallback");
     if (fallback) fallback.remove();
@@ -386,8 +393,23 @@ if (cursor && follower && window.matchMedia("(hover: hover)").matches) {
       track.appendChild(card);
     });
 
+    // Cards de foto (antes & depois) após os vídeos
+    FOTOS_AD.forEach((src, idx) => {
+      const card = document.createElement("div");
+      card.className =
+        "video-card" + (found.length === 0 && idx === 0 ? " active" : "");
+      card.dataset.type = "photo";
+
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = "Antes e depois " + (idx + 1);
+
+      card.appendChild(img);
+      track.appendChild(card);
+    });
+
     carousel.appendChild(track);
-    setupCarouselControls(track, found.length);
+    setupCarouselControls(track, found.length + FOTOS_AD.length);
   }
 
   buildCarousel(VIDEOS);
@@ -512,67 +534,6 @@ function initScrollReveal() {
 window.addEventListener("load", () => {
   initScrollReveal();
 });
-
-/* ════════════════════════════════════════
-   7b. CARROSSEL ANTES & DEPOIS
-════════════════════════════════════════ */
-(function initAdCarousel() {
-  // Mesma mecânica do carrossel de vídeos, porém com <img> no lugar de <video>
-  const FOTOS_AD = [
-    "fotos/antes-depois1.JPG",
-    "fotos/antes-depois2.JPG",
-    "fotos/antes-depois3.JPG",
-  ];
-
-  const carousel = document.getElementById("adCarousel");
-  if (!carousel) return;
-
-  const track = document.createElement("div");
-  track.className = "carousel__track";
-
-  FOTOS_AD.forEach((src, idx) => {
-    const card = document.createElement("div");
-    card.className = "video-card" + (idx === 0 ? " active" : "");
-
-    const img = document.createElement("img");
-    img.src = src;
-    img.alt = "Antes e depois " + (idx + 1);
-
-    card.appendChild(img);
-    track.appendChild(card);
-  });
-
-  carousel.appendChild(track);
-
-  const cards = [...track.querySelectorAll(".video-card")];
-  const total = cards.length;
-  let current = 0;
-
-  function goTo(idx) {
-    cards[current].classList.remove("active");
-    current = (idx + total) % total;
-    cards[current].classList.add("active");
-    const card = cards[current];
-    const offset =
-      card.offsetLeft - carousel.offsetWidth / 2 + card.offsetWidth / 2;
-    carousel.scrollTo({ left: offset, behavior: "smooth" });
-  }
-
-  cards.forEach((card, i) => {
-    card.addEventListener("click", () => {
-      if (i !== current) goTo(i);
-    });
-  });
-
-  document
-    .querySelector(".ad-prev")
-    ?.addEventListener("click", () => goTo(current - 1));
-  document
-    .querySelector(".ad-next")
-    ?.addEventListener("click", () => goTo(current + 1));
-
-  requestAnimationFrame(() => goTo(0));
-})();
 
 /* ════════════════════════════════════════
    8. FAQ ACCORDION
