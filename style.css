@@ -965,9 +965,12 @@ img {
   font-size: 2rem;
 }
 
-/* altura explícita para garantir que position:absolute funcione em todos os browsers */
 .ad-carousel .video-card {
-  height: calc(260px * 16 / 9);
+  width: clamp(240px, 55vw, 420px);
+  aspect-ratio: 4 / 3;
+  height: auto;
+  position: relative;
+  overflow: hidden;
 }
 .ad-carousel .video-card img {
   position: absolute;
