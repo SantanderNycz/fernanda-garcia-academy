@@ -401,127 +401,152 @@ if (cursor && follower && window.matchMedia("(hover: hover)").matches) {
     return card;
   }
 
-  const total = ITEMS.length;
-  const track = document.createElement("div");
-  track.className = "carousel__track";
-  track.style.transition = "none";
+  // Proba cada arquivo antes de criar o card — arquivos ausentes são ignorados
+  let pending = ITEMS.length;
+  const found = new Array(ITEMS.length).fill(null);
 
-  // Estrutura infinita: [clone_last] [item0…itemN] [clone_first]
-  const cloneLast = makeCard(ITEMS[total - 1], false);
-  cloneLast.dataset.clone = "last";
-  track.appendChild(cloneLast);
+  function onProbed() {
+    if (--pending > 0) return;
 
-  const realCards = ITEMS.map((item, i) => {
-    const card = makeCard(item, i === 0);
-    track.appendChild(card);
-    return card;
-  });
+    const validItems = found.filter(Boolean);
+    if (validItems.length === 0) return;
 
-  const cloneFirst = makeCard(ITEMS[0], false);
-  cloneFirst.dataset.clone = "first";
-  track.appendChild(cloneFirst);
+    const total = validItems.length;
+    const track = document.createElement("div");
+    track.className = "carousel__track";
+    track.style.transition = "none";
 
-  carousel.appendChild(track);
+    // Estrutura infinita: [clone_last] [item0…itemN] [clone_first]
+    const cloneLast = makeCard(validItems[total - 1], false);
+    cloneLast.dataset.clone = "last";
+    track.appendChild(cloneLast);
 
-  // Índice no track: 0 = cloneLast, 1…total = reais, total+1 = cloneFirst
-  let trackIdx = 1; // começa no real[0]
-  let isAnimating = false;
-
-  function getTranslateX(idx) {
-    return carousel.offsetWidth / 2 - CARD_W / 2 - idx * STEP;
-  }
-
-  function setPos(idx, animate) {
-    track.style.transition = animate
-      ? "transform 0.5s var(--ease-out)"
-      : "none";
-    track.style.transform = `translateX(${getTranslateX(idx)}px)`;
-  }
-
-  function allCards() {
-    return [...track.querySelectorAll(".video-card")];
-  }
-
-  function activateIdx(idx) {
-    // idx no track (inclui clones)
-    allCards().forEach((c, i) => {
-      const active = i === idx;
-      c.classList.toggle("active", active);
-      const v = c.querySelector("video");
-      if (!v) return;
-      if (active) {
-        v.controls = true;
-        v.play().catch(() => {});
-      } else {
-        v.pause();
-        v.controls = false;
-      }
+    validItems.forEach((item, i) => {
+      track.appendChild(makeCard(item, i === 0));
     });
+
+    const cloneFirst = makeCard(validItems[0], false);
+    cloneFirst.dataset.clone = "first";
+    track.appendChild(cloneFirst);
+
+    carousel.appendChild(track);
+    setupCarousel(track, total);
   }
 
-  function goTo(idx) {
-    if (isAnimating) return;
-    isAnimating = true;
-    trackIdx = idx;
-    activateIdx(trackIdx);
-    setPos(trackIdx, true);
-  }
-
-  // Só responde à transição do próprio track, ignorando eventos borbulhados dos cards filhos
-  track.addEventListener("transitionend", (e) => {
-    if (e.target !== track) return;
-    isAnimating = false;
-    if (trackIdx === 0) {
-      trackIdx = total;
-      setPos(trackIdx, false);
-    } else if (trackIdx === total + 1) {
-      trackIdx = 1;
-      setPos(trackIdx, false);
+  ITEMS.forEach((item, idx) => {
+    if (item.type === "photo") {
+      const img = new Image();
+      img.onload = () => { found[idx] = item; onProbed(); };
+      img.onerror = () => onProbed();
+      img.src = item.src;
+    } else {
+      const v = document.createElement("video");
+      v.preload = "metadata";
+      v.onloadedmetadata = () => { found[idx] = item; onProbed(); };
+      v.onerror = () => onProbed();
+      v.src = item.src;
     }
   });
 
-  $("#videoPrev")?.addEventListener("click", () => goTo(trackIdx - 1));
-  $("#videoNext")?.addEventListener("click", () => goTo(trackIdx + 1));
+  function setupCarousel(track, total) {
+    // Índice no track: 0 = cloneLast, 1…total = reais, total+1 = cloneFirst
+    let trackIdx = 1;
+    let isAnimating = false;
 
-  // Clique em card lateral
-  allCards().forEach((card, i) => {
-    card.addEventListener("click", () => {
-      if (i !== trackIdx) goTo(i);
-    });
-  });
+    function getTranslateX(idx) {
+      return carousel.offsetWidth / 2 - CARD_W / 2 - idx * STEP;
+    }
 
-  // Inicializa após layout estar pronto (evita offsetWidth=0)
-  function initPosition() {
-    setPos(trackIdx, false);
-    activateIdx(trackIdx);
-  }
-  if (document.readyState === "complete") {
-    initPosition();
-  } else {
-    window.addEventListener("load", initPosition, { once: true });
-  }
+    function setPos(idx, animate) {
+      track.style.transition = animate
+        ? "transform 0.5s var(--ease-out)"
+        : "none";
+      track.style.transform = `translateX(${getTranslateX(idx)}px)`;
+    }
 
-  // Recalcula posição se janela redimensionada
-  let resizeTimer;
-  window.addEventListener("resize", () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => setPos(trackIdx, false), 150);
-  });
+    function allCards() {
+      return [...track.querySelectorAll(".video-card")];
+    }
 
-  // Pausa ao sair do viewport
-  const section = document.getElementById("videos");
-  if (section) {
-    new IntersectionObserver(
-      ([e]) => {
-        if (!e.isIntersecting) {
-          allCards().forEach((c) => c.querySelector("video")?.pause());
+    function activateIdx(idx) {
+      allCards().forEach((c, i) => {
+        const active = i === idx;
+        c.classList.toggle("active", active);
+        const v = c.querySelector("video");
+        if (!v) return;
+        if (active) {
+          v.controls = true;
+          v.play().catch(() => {});
         } else {
-          const v = allCards()[trackIdx]?.querySelector("video");
-          if (v) v.play().catch(() => {});
+          v.pause();
+          v.controls = false;
         }
-      },
-      { threshold: 0.2 },
-    ).observe(section);
+      });
+    }
+
+    function goTo(idx) {
+      if (isAnimating) return;
+      isAnimating = true;
+      trackIdx = idx;
+      activateIdx(trackIdx);
+      setPos(trackIdx, true);
+    }
+
+    // Só responde à transição do próprio track, ignorando borbulhamento dos cards
+    track.addEventListener("transitionend", (e) => {
+      if (e.target !== track) return;
+      isAnimating = false;
+      if (trackIdx === 0) {
+        trackIdx = total;
+        setPos(trackIdx, false);
+      } else if (trackIdx === total + 1) {
+        trackIdx = 1;
+        setPos(trackIdx, false);
+      }
+    });
+
+    $("#videoPrev")?.addEventListener("click", () => goTo(trackIdx - 1));
+    $("#videoNext")?.addEventListener("click", () => goTo(trackIdx + 1));
+
+    allCards().forEach((card, i) => {
+      card.addEventListener("click", () => {
+        if (i !== trackIdx) goTo(i);
+      });
+    });
+
+    // Inicializa após layout pronto
+    function initPosition() {
+      setPos(trackIdx, false);
+      activateIdx(trackIdx);
+    }
+    if (document.readyState === "complete") {
+      initPosition();
+    } else {
+      window.addEventListener("load", initPosition, { once: true });
+    }
+
+    // Recalcula ao redimensionar
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => setPos(trackIdx, false), 150);
+    });
+
+    // Pausa ao sair do viewport
+    const section = document.getElementById("videos");
+    if (section) {
+      new IntersectionObserver(
+        ([e]) => {
+          if (!e.isIntersecting) {
+            allCards().forEach((c) => c.querySelector("video")?.pause());
+          } else {
+            const v = allCards()[trackIdx]?.querySelector("video");
+            if (v) v.play().catch(() => {});
+          }
+        },
+        { threshold: 0.2 },
+      ).observe(section);
+    }
   }
 })();
 
