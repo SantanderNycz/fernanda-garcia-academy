@@ -517,9 +517,34 @@ window.addEventListener("load", () => {
    7b. CARROSSEL ANTES & DEPOIS
 ════════════════════════════════════════ */
 (function initAdCarousel() {
-  const carousel = document.querySelector(".ad-carousel");
+  // Mesma mecânica do carrossel de vídeos, porém com <img> no lugar de <video>
+  const FOTOS_AD = [
+    "fotos/antes-depois1.JPG",
+    "fotos/antes-depois2.JPG",
+    "fotos/antes-depois3.JPG",
+  ];
+
+  const carousel = document.getElementById("adCarousel");
   if (!carousel) return;
-  const cards = [...carousel.querySelectorAll(".video-card")];
+
+  const track = document.createElement("div");
+  track.className = "carousel__track";
+
+  FOTOS_AD.forEach((src, idx) => {
+    const card = document.createElement("div");
+    card.className = "video-card" + (idx === 0 ? " active" : "");
+
+    const img = document.createElement("img");
+    img.src = src;
+    img.alt = "Antes e depois " + (idx + 1);
+
+    card.appendChild(img);
+    track.appendChild(card);
+  });
+
+  carousel.appendChild(track);
+
+  const cards = [...track.querySelectorAll(".video-card")];
   const total = cards.length;
   let current = 0;
 
