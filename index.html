@@ -37,23 +37,23 @@
       </a>
 
       <nav class="navbar__nav">
-        <a href="#sobre">Sobre</a>
-        <a href="#portfolio">Portfólio</a>
-        <a href="#videos">Vídeos</a>
+        <a href="#sobre" data-i18n="nav.sobre">Sobre</a>
+        <a href="#portfolio" data-i18n="nav.portfolio">Portfólio</a>
+        <a href="#videos" data-i18n="nav.videos">Vídeos</a>
         <div class="nav-dropdown">
-          <a href="cursos.html">Cursos
-            <svg class="nav-dropdown__arrow" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M1 1l4 4 4-4" />
-            </svg>
+          <a href="cursos.html" data-i18n="nav.cursos">Cursos
+            <svg class="nav-dropdown__arrow" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg>
           </a>
           <div class="nav-dropdown__menu">
-            <a href="lash-lifting.html">Lash Lifting Iniciante</a>
-            <a href="brow-lamination.html">Brow Lamination + Design</a>
-            <a href="lash-lifting-coreano.html">Método Coreano</a>
+            <a href="lash-lifting.html" data-i18n="nav.lash">Lash Lifting Iniciante</a>
+            <a href="brow-lamination.html" data-i18n="nav.brow">Brow Lamination + Design</a>
+            <a href="lash-lifting-coreano.html" data-i18n="nav.coreano">Método Coreano</a>
           </div>
         </div>
-        <a href="#contato" class="nav-cta">Me inscrever</a>
+        <a href="#contato" class="nav-cta" data-i18n="nav.cta">Me inscrever</a>
       </nav>
+
+      <button class="lang-switch" id="langSwitch" aria-label="Switch language">PT</button>
 
       <button class="navbar__burger" id="burger" aria-label="Menu">
         <span></span><span></span><span></span>
@@ -82,18 +82,18 @@
       </div>
 
       <div class="hero__content">
-        <p class="hero__eyebrow reveal-line">Bem-vinda ao</p>
+        <p class="hero__eyebrow reveal-line" data-i18n="hero.eyebrow">Bem-vinda ao</p>
         <h1 class="hero__title reveal-line">
           <img class="hero__logo" src="logos/marca d_agua.png" alt="Fernanda Garcia Academy" onerror="this.style.display='none'" />
         </h1>
-        <p class="hero__tagline reveal-line">
-          O guia definitivo para dominar o Lash Lifting e construir uma carreira de alta lucratividade.
+        <p class="hero__tagline reveal-line" data-i18n="hero.tagline">
+          Técnicas de elite em Lash Lifting, Brow Lamination e Design de Sobrancelhas para construir uma carreira de alta lucratividade.
         </p>
-        <a href="#contato" class="btn btn--primary reveal-line">Quero me inscrever</a>
+        <a href="#contato" class="btn btn--primary reveal-line" data-i18n="hero.cta">Quero me inscrever</a>
       </div>
 
       <div class="hero__scroll-hint">
-        <span>Role para descobrir</span>
+        <span data-i18n="hero.scroll">Role para descobrir</span>
         <div class="hero__scroll-line"></div>
       </div>
     </section>
@@ -115,32 +115,32 @@
           </div>
 
           <div class="sobre__text gs-reveal">
-            <span class="section-label">Sobre mim</span>
-            <h2 class="section-title">
+            <span class="section-label" data-i18n="sobre.label">Sobre mim</span>
+            <h2 class="section-title" data-i18n="sobre.h2">
               Técnica que <em>transforma</em>
             </h2>
-            <p>
+            <p data-i18n="sobre.p1">
               Sou Fernanda Garcia, especialista e educadora na área de embelezamento do olhar.
               Desenvolvi uma metodologia própria que une precisão técnica, segurança e resultados naturais que encantam cada cliente.
             </p>
-            <p>
+            <p data-i18n="sobre.p2">
               Na <strong>Fernanda Garcia Academy</strong>, reúno tudo que aprendi, da química dos produtos à prática de bancada, em um material didático completo para você dominar os procedimentos que mais crescem no mercado da beleza.
             </p>
             <div class="sobre__stats">
               <div class="stat">
                 <span class="stat__num">+100</span>
-                <span class="stat__label">Alunas formadas</span>
+                <span class="stat__label" data-i18n="sobre.stat1">Alunas formadas</span>
               </div>
               <div class="stat">
                 <span class="stat__num">+10</span>
-                <span class="stat__label">Anos de experiência</span>
+                <span class="stat__label" data-i18n="sobre.stat2">Anos de experiência</span>
               </div>
               <div class="stat">
                 <span class="stat__num">45–60</span>
-                <span class="stat__label">Dias de resultado</span>
+                <span class="stat__label" data-i18n="sobre.stat3">Dias de resultado</span>
               </div>
             </div>
-            <a href="#portfolio" class="btn btn--outline">Conheça os cursos</a>
+            <a href="#portfolio" class="btn btn--outline" data-i18n="sobre.cta">Conheça os cursos</a>
           </div>
         </div>
       </div>
@@ -152,8 +152,8 @@
     <section class="portfolio" id="portfolio">
       <div class="container">
         <div class="section-header gs-reveal">
-          <span class="section-label">Portfólio</span>
-          <h2 class="section-title">Resultados que<br /><em>falam por si</em></h2>
+          <span class="section-label" data-i18n="portfolio.label">Portfólio</span>
+          <h2 class="section-title" data-i18n="portfolio.h2">Resultados que<br /><em>falam por si</em></h2>
         </div>
       </div>
 
@@ -176,8 +176,8 @@
     <section class="videos-section" id="videos">
       <div class="container">
         <div class="section-header gs-reveal">
-          <span class="section-label">Na prática</span>
-          <h2 class="section-title">O procedimento <em>em ação</em></h2>
+          <span class="section-label" data-i18n="videos.label">Na prática</span>
+          <h2 class="section-title" data-i18n="videos.h2">O procedimento <em>em ação</em></h2>
         </div>
       </div>
 
@@ -209,36 +209,30 @@
           </svg>
         </button>
       </div>
-    </section>
 
-    <!-- ═══════════════════════════════════════
-         ANTES & DEPOIS
-    ═══════════════════════════════════════ -->
-    <section class="antes-depois" id="antes-depois">
-      <div class="container">
-        <div class="section-header gs-reveal">
-          <span class="section-tag">Transformações reais</span>
-          <h2>Antes <em>&amp; depois</em></h2>
-        </div>
-      </div>
-      <div class="carousel-wrap gs-reveal">
-        <button class="carousel-btn ad-prev" aria-label="Anterior">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M15 18l-6-6 6-6" />
-          </svg>
-        </button>
-        <div class="carousel ad-carousel">
-          <div class="carousel__track">
-            <div class="video-card active"><img src="fotos/antes-depois1.JPG" alt="Antes e depois 1" loading="lazy" /></div>
-            <div class="video-card"><img src="fotos/antes-depois2.JPG" alt="Antes e depois 2" loading="lazy" /></div>
-            <div class="video-card"><img src="fotos/antes-depois3.JPG" alt="Antes e depois 3" loading="lazy" /></div>
+      <!-- ANTES & DEPOIS — dentro da seção de vídeos -->
+      <div class="antes-depois" id="antes-depois">
+        <div class="container">
+          <div class="section-header gs-reveal">
+            <span class="section-tag" data-i18n="antesdepois.tag">Transformações reais</span>
+            <h2 data-i18n="antesdepois.h2">Antes <em>&amp; depois</em></h2>
           </div>
         </div>
-        <button class="carousel-btn ad-next" aria-label="Próximo">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M9 18l6-6-6-6" />
-          </svg>
-        </button>
+        <div class="carousel-wrap gs-reveal">
+          <button class="carousel-btn ad-prev" aria-label="Anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <div class="carousel ad-carousel">
+            <div class="carousel__track">
+              <div class="video-card active"><img src="fotos/antes-depois1.JPG" alt="Antes e depois 1" loading="lazy" /></div>
+              <div class="video-card"><img src="fotos/antes-depois2.JPG" alt="Antes e depois 2" loading="lazy" /></div>
+              <div class="video-card"><img src="fotos/antes-depois3.JPG" alt="Antes e depois 3" loading="lazy" /></div>
+            </div>
+          </div>
+          <button class="carousel-btn ad-next" aria-label="Próximo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
       </div>
     </section>
 
@@ -248,69 +242,49 @@
     <section class="faq" id="faq">
       <div class="container">
         <div class="section-header gs-reveal">
-          <span class="section-label">Dúvidas</span>
-          <h2 class="section-title">Perguntas <em>frequentes</em></h2>
+          <span class="section-label" data-i18n="faq.label">Dúvidas</span>
+          <h2 class="section-title" data-i18n="faq.h2">Perguntas <em>frequentes</em></h2>
         </div>
         <div class="faq__list gs-reveal">
 
           <div class="faq__item">
-            <button class="faq__question">
+            <button class="faq__question" data-i18n="faq.q1">
               Quanto tempo dura o resultado do Lash Lifting?
-              <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M12 5v14M5 12h14" />
-              </svg>
+              <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
             </button>
-            <div class="faq__answer">
-              <p>O resultado acompanha o ciclo natural de crescimento dos cílios, durando entre 45 e 60 dias. Após esse período, os fios crescem e o efeito desaparece gradualmente, sem necessidade de remoção.</p>
-            </div>
+            <div class="faq__answer"><p data-i18n="faq.a1">O resultado acompanha o ciclo natural de crescimento dos cílios, durando entre 45 e 60 dias. Após esse período, os fios crescem e o efeito desaparece gradualmente, sem necessidade de remoção.</p></div>
           </div>
 
           <div class="faq__item">
-            <button class="faq__question">
+            <button class="faq__question" data-i18n="faq.q2">
               E o Brow Lamination, quanto tempo o efeito permanece?
-              <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M12 5v14M5 12h14" />
-              </svg>
+              <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
             </button>
-            <div class="faq__answer">
-              <p>O Brow Lamination dura em média 4 a 6 semanas, dependendo da oleosidade da pele e da rotina de cuidados da cliente. Com hidratação adequada os fios mantêm a fixação por mais tempo.</p>
-            </div>
+            <div class="faq__answer"><p data-i18n="faq.a2">O Brow Lamination dura em média 4 a 6 semanas, dependendo da oleosidade da pele e da rotina de cuidados da cliente. Com hidratação adequada os fios mantêm a fixação por mais tempo.</p></div>
           </div>
 
           <div class="faq__item">
-            <button class="faq__question">
+            <button class="faq__question" data-i18n="faq.q3">
               O Lash Lifting danifica os cílios naturais?
-              <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M12 5v14M5 12h14" />
-              </svg>
+              <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
             </button>
-            <div class="faq__answer">
-              <p>Quando realizado com técnica correta e produtos aprovados, o Lash Lifting não danifica os cílios. O protocolo inclui nutrição ao final do procedimento, deixando os fios mais fortes e hidratados.</p>
-            </div>
+            <div class="faq__answer"><p data-i18n="faq.a3">Quando realizado com técnica correta e produtos aprovados, o Lash Lifting não danifica os cílios. O protocolo inclui nutrição ao final do procedimento, deixando os fios mais fortes e hidratados.</p></div>
           </div>
 
           <div class="faq__item">
-            <button class="faq__question">
+            <button class="faq__question" data-i18n="faq.q4">
               Qual a diferença entre Lash Lifting e Brow Lamination?
-              <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M12 5v14M5 12h14" />
-              </svg>
+              <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
             </button>
-            <div class="faq__answer">
-              <p>O Lash Lifting curva e projeta os cílios, criando um efeito de olhar aberto. O Brow Lamination laminiza e alinha os pelos das sobrancelhas, dando fixação e volume. São técnicas complementares, muitas profissionais oferecem ambas como serviço único.</p>
-            </div>
+            <div class="faq__answer"><p data-i18n="faq.a4">O Lash Lifting curva e projeta os cílios, criando um efeito de olhar aberto. O Brow Lamination laminiza e alinha os pelos das sobrancelhas, dando fixação e volume. São técnicas complementares, muitas profissionais oferecem ambas como serviço único.</p></div>
           </div>
 
           <div class="faq__item">
-            <button class="faq__question">
+            <button class="faq__question" data-i18n="faq.q5">
               Como são estruturados os materiais didáticos?
-              <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M12 5v14M5 12h14" />
-              </svg>
+              <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
             </button>
-            <div class="faq__answer">
-              <p>Cada curso tem um manual próprio desenvolvido por Fernanda Garcia com base em mais de 10 anos de experiência. O de Lash Lifting cobre ciclo do cílio, química dos produtos, biossegurança e metodologias exclusivas de aplicação. O de Brow Lamination inclui mapeamento dos pelos, protocolos de laminação, fixação e nutrição, tudo passo a passo.</p>
-            </div>
+            <div class="faq__answer"><p data-i18n="faq.a5">Cada curso tem um manual próprio desenvolvido por Fernanda Garcia com base em mais de 10 anos de experiência. O de Lash Lifting cobre ciclo do cílio, química dos produtos, biossegurança e metodologias exclusivas de aplicação. O de Brow Lamination inclui mapeamento dos pelos, protocolos de laminação, fixação e nutrição, tudo passo a passo.</p></div>
           </div>
 
         </div>
@@ -324,11 +298,11 @@
       <div class="container">
         <div class="contato__inner">
           <div class="contato__text gs-reveal">
-            <span class="section-label">Inscrições</span>
-            <h2 class="section-title">
+            <span class="section-label" data-i18n="contato.label">Inscrições</span>
+            <h2 class="section-title" data-i18n="contato.h2">
               Pronta para dar<br /><em>o próximo passo?</em>
             </h2>
-            <p>
+            <p data-i18n="contato.p">
               Preencha o formulário e entraremos em contato pelo WhatsApp para apresentar todos os detalhes dos cursos disponíveis.
             </p>
             <div class="contato__contact-info">

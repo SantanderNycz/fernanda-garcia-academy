@@ -331,6 +331,31 @@ img {
 
 /* (logo agora é imagem — regras de cor de texto removidas) */
 
+/* Language Switch */
+.lang-switch {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-light);
+  background: transparent;
+  border: 1px solid rgba(254, 254, 254, 0.35);
+  border-radius: 2px;
+  padding: 0.28rem 0.6rem;
+  cursor: pointer;
+  transition: color 0.3s, border-color 0.3s;
+  flex-shrink: 0;
+}
+.navbar.scrolled .lang-switch {
+  color: var(--color-dark);
+  border-color: rgba(40, 40, 41, 0.3);
+}
+.lang-switch:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
 /* Burger */
 .navbar__burger {
   display: none;

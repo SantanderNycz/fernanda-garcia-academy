@@ -7,6 +7,133 @@ const $ = (sel, ctx = document) => ctx.querySelector(sel);
 const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
 /* ════════════════════════════════════════
+   0. LANGUAGE SWITCH
+════════════════════════════════════════ */
+const TRANSLATIONS = {
+  pt: {
+    'nav.sobre': 'Sobre',
+    'nav.portfolio': 'Portfólio',
+    'nav.videos': 'Vídeos',
+    'nav.cursos': 'Cursos',
+    'nav.lash': 'Lash Lifting Iniciante',
+    'nav.brow': 'Brow Lamination + Design',
+    'nav.coreano': 'Método Coreano',
+    'nav.cta': 'Me inscrever',
+    'hero.eyebrow': 'Bem-vinda ao',
+    'hero.tagline': 'Técnicas de elite em Lash Lifting, Brow Lamination e Design de Sobrancelhas para construir uma carreira de alta lucratividade.',
+    'hero.cta': 'Quero me inscrever',
+    'hero.scroll': 'Role para descobrir',
+    'sobre.label': 'Sobre mim',
+    'sobre.h2': 'Técnica que <em>transforma</em>',
+    'sobre.p1': 'Sou Fernanda Garcia, especialista e educadora na área de embelezamento do olhar. Desenvolvi uma metodologia própria que une precisão técnica, segurança e resultados naturais que encantam cada cliente.',
+    'sobre.p2': 'Na <strong>Fernanda Garcia Academy</strong>, reúno tudo que aprendi, da química dos produtos à prática de bancada, em um material didático completo para você dominar os procedimentos que mais crescem no mercado da beleza.',
+    'sobre.stat1': 'Alunas formadas',
+    'sobre.stat2': 'Anos de experiência',
+    'sobre.stat3': 'Dias de resultado',
+    'sobre.cta': 'Conheça os cursos',
+    'portfolio.label': 'Portfólio',
+    'portfolio.h2': 'Resultados que<br /><em>falam por si</em>',
+    'videos.label': 'Na prática',
+    'videos.h2': 'O procedimento <em>em ação</em>',
+    'antesdepois.tag': 'Transformações reais',
+    'antesdepois.h2': 'Antes <em>&amp; depois</em>',
+    'faq.label': 'Dúvidas',
+    'faq.h2': 'Perguntas <em>frequentes</em>',
+    'faq.q1': 'Quanto tempo dura o resultado do Lash Lifting?',
+    'faq.a1': 'O resultado acompanha o ciclo natural de crescimento dos cílios, durando entre 45 e 60 dias. Após esse período, os fios crescem e o efeito desaparece gradualmente, sem necessidade de remoção.',
+    'faq.q2': 'E o Brow Lamination, quanto tempo o efeito permanece?',
+    'faq.a2': 'O Brow Lamination dura em média 4 a 6 semanas, dependendo da oleosidade da pele e da rotina de cuidados da cliente. Com hidratação adequada os fios mantêm a fixação por mais tempo.',
+    'faq.q3': 'O Lash Lifting danifica os cílios naturais?',
+    'faq.a3': 'Quando realizado com técnica correta e produtos aprovados, o Lash Lifting não danifica os cílios. O protocolo inclui nutrição ao final do procedimento, deixando os fios mais fortes e hidratados.',
+    'faq.q4': 'Qual a diferença entre Lash Lifting e Brow Lamination?',
+    'faq.a4': 'O Lash Lifting curva e projeta os cílios, criando um efeito de olhar aberto. O Brow Lamination laminiza e alinha os pelos das sobrancelhas, dando fixação e volume. São técnicas complementares, muitas profissionais oferecem ambas como serviço único.',
+    'faq.q5': 'Como são estruturados os materiais didáticos?',
+    'faq.a5': 'Cada curso tem um manual próprio desenvolvido por Fernanda Garcia com base em mais de 10 anos de experiência. O de Lash Lifting cobre ciclo do cílio, química dos produtos, biossegurança e metodologias exclusivas de aplicação. O de Brow Lamination inclui mapeamento dos pelos, protocolos de laminação, fixação e nutrição, tudo passo a passo.',
+    'contato.label': 'Inscrições',
+    'contato.h2': 'Pronta para dar<br /><em>o próximo passo?</em>',
+    'contato.p': 'Preencha o formulário e entraremos em contato pelo WhatsApp para apresentar todos os detalhes dos cursos disponíveis.',
+  },
+  en: {
+    'nav.sobre': 'About',
+    'nav.portfolio': 'Portfolio',
+    'nav.videos': 'Videos',
+    'nav.cursos': 'Courses',
+    'nav.lash': 'Lash Lifting Beginner',
+    'nav.brow': 'Brow Lamination + Design',
+    'nav.coreano': 'Korean Method',
+    'nav.cta': 'Enroll now',
+    'hero.eyebrow': 'Welcome to',
+    'hero.tagline': 'Elite techniques in Lash Lifting, Brow Lamination and Eyebrow Design to build a highly profitable beauty career.',
+    'hero.cta': 'Enroll now',
+    'hero.scroll': 'Scroll to discover',
+    'sobre.label': 'About me',
+    'sobre.h2': 'Technique that <em>transforms</em>',
+    'sobre.p1': 'I am Fernanda Garcia, specialist and educator in the eye beauty field. I developed my own methodology that combines technical precision, safety and natural results that delight every client.',
+    'sobre.p2': 'At <strong>Fernanda Garcia Academy</strong>, I bring together everything I have learned — from product chemistry to hands-on practice — in a complete educational program for you to master the fastest-growing procedures in the beauty market.',
+    'sobre.stat1': 'Students trained',
+    'sobre.stat2': 'Years of experience',
+    'sobre.stat3': 'Days of results',
+    'sobre.cta': 'Explore courses',
+    'portfolio.label': 'Portfolio',
+    'portfolio.h2': 'Results that<br /><em>speak for themselves</em>',
+    'videos.label': 'In practice',
+    'videos.h2': 'The procedure <em>in action</em>',
+    'antesdepois.tag': 'Real transformations',
+    'antesdepois.h2': 'Before <em>&amp; after</em>',
+    'faq.label': 'Questions',
+    'faq.h2': 'Frequently <em>asked questions</em>',
+    'faq.q1': 'How long does the Lash Lifting result last?',
+    'faq.a1': 'The result follows the natural lash growth cycle, lasting between 45 and 60 days. After that period, the lashes grow out and the effect gradually fades — no removal needed.',
+    'faq.q2': 'And Brow Lamination — how long does the effect last?',
+    'faq.a2': 'Brow Lamination lasts on average 4 to 6 weeks, depending on skin oiliness and the client\'s care routine. With proper hydration, the hairs maintain their shape longer.',
+    'faq.q3': 'Does Lash Lifting damage natural lashes?',
+    'faq.a3': 'When performed with the correct technique and approved products, Lash Lifting does not damage the lashes. The protocol includes a nourishing step at the end, leaving the lashes stronger and more hydrated.',
+    'faq.q4': 'What is the difference between Lash Lifting and Brow Lamination?',
+    'faq.a4': 'Lash Lifting curls and projects the lashes, creating an open-eye effect. Brow Lamination smooths and aligns the brow hairs, giving them hold and volume. They are complementary techniques — many professionals offer both as a combined service.',
+    'faq.q5': 'How are the course materials structured?',
+    'faq.a5': 'Each course has its own manual developed by Fernanda Garcia based on more than 10 years of experience. The Lash Lifting manual covers lash growth cycles, product chemistry, biosafety and exclusive application methodologies. The Brow Lamination manual includes hair mapping, lamination protocols, fixation and nourishment — all step by step.',
+    'contato.label': 'Enrollment',
+    'contato.h2': 'Ready to take<br /><em>the next step?</em>',
+    'contato.p': 'Fill in the form and we will get in touch via WhatsApp with all the details about our available courses.',
+  },
+};
+
+function setLang(lang) {
+  localStorage.setItem('fg-lang', lang);
+  document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+  const btn = document.getElementById('langSwitch');
+  if (btn) btn.textContent = lang === 'pt' ? 'EN' : 'PT';
+
+  const t = TRANSLATIONS[lang] || TRANSLATIONS.pt;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    const val = t[key];
+    if (!val) return;
+    // If element contains SVG children (e.g. FAQ buttons), update only text node
+    if (el.querySelector('svg')) {
+      const tn = [...el.childNodes].find(n => n.nodeType === 3 && n.textContent.trim());
+      if (tn) tn.textContent = '\n              ' + val + '\n              ';
+    } else {
+      el.innerHTML = val;
+    }
+  });
+}
+
+(function initLang() {
+  const saved = localStorage.getItem('fg-lang') || 'pt';
+  // Apply saved lang after DOM is ready
+  if (saved !== 'pt') setLang(saved);
+  else {
+    const btn = document.getElementById('langSwitch');
+    if (btn) btn.textContent = 'EN';
+  }
+  document.getElementById('langSwitch')?.addEventListener('click', () => {
+    const current = localStorage.getItem('fg-lang') || 'pt';
+    setLang(current === 'pt' ? 'en' : 'pt');
+  });
+})();
+
+/* ════════════════════════════════════════
    1. YEAR
 ════════════════════════════════════════ */
 const yearEl = $("#year");
