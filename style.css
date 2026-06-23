@@ -1420,6 +1420,23 @@ img {
     gap: 0.5rem;
   }
 
+  /* Garante que o track não vaza para fora em mobile */
+  .carousel {
+    overflow: hidden;
+    position: relative;
+  }
+  .carousel__track {
+    /* O translateX é calculado com getCardW() = 200px em mobile */
+    /* Nenhuma regra aqui — width é gerenciado pelo JS */
+  }
+
+  /* Sidebar dos cursos: desabilita sticky em mobile para não ficar fixo no meio da tela */
+  .curso-sidebar {
+    position: relative !important;
+    top: auto !important;
+    margin-top: 2rem;
+  }
+
   .footer__inner {
     grid-template-columns: 1fr;
     gap: 2rem;
