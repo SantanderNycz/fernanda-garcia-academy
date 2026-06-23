@@ -345,11 +345,17 @@ if (cursor && follower && window.matchMedia("(hover: hover)").matches) {
 })();
 
 /* ════════════════════════════════════════
-   6. VIDEO CAROUSEL — INFINITO REAL
-   Estratégia: clone primeiro e último item nas extremidades.
-   Ao chegar num clone, teleporta silenciosamente para o real
-   correspondente via transitionend. O loop nunca "volta ao início"
-   visivelmente — o movimento é sempre contínuo na mesma direção.
+   6. VIDEO CAROUSEL
+   ─────────────────────────────────────
+   DESKTOP (> 768px): 3 cópias completas do array no DOM.
+     [cópia A | cópia B | cópia C]
+     O utilizador navega sempre na cópia B. Após cada
+     transição, se entrou em A ou C, teleporta
+     silenciosamente para o equivalente em B.
+     Zero flash, zero travamento — o loop é imperceptível.
+
+   MOBILE (≤ 768px): comportamento atual preservado
+     (clone só do primeiro e do último — funciona bem).
 ════════════════════════════════════════ */
 (function initCarousel() {
   const ITEMS = [
@@ -375,15 +381,15 @@ if (cursor && follower && window.matchMedia("(hover: hover)").matches) {
   if (!carousel) return;
 
   const GAP = 24;
+  const MOBILE_BREAKPOINT = 768;
 
-  // Retorna a largura do card de acordo com viewport
-  function getCardW() {
-    return window.innerWidth <= 768 ? 200 : 260;
-  }
+  function isDesktop() { return window.innerWidth > MOBILE_BREAKPOINT; }
+  function getCardW()  { return isDesktop() ? 260 : 200; }
 
-  function makeCard(item, isActive) {
+  // ── Criação de card ─────────────────────────────
+  function makeCard(item, active) {
     const card = document.createElement("div");
-    card.className = "video-card" + (isActive ? " active" : "");
+    card.className = "video-card" + (active ? " active" : "");
 
     if (item.type === "video") {
       const video = document.createElement("video");
@@ -392,10 +398,7 @@ if (cursor && follower && window.matchMedia("(hover: hover)").matches) {
       video.loop = true;
       video.muted = true;
       video.playsInline = true;
-      if (isActive) {
-        video.autoplay = true;
-        video.controls = true;
-      }
+      if (active) { video.autoplay = true; video.controls = true; }
       card.appendChild(video);
     } else {
       const img = document.createElement("img");
@@ -406,15 +409,15 @@ if (cursor && follower && window.matchMedia("(hover: hover)").matches) {
     return card;
   }
 
-  // Proba cada arquivo — ausentes são ignorados
+  // ── Probe de arquivos ───────────────────────────
   let pending = ITEMS.length;
   const found = new Array(ITEMS.length).fill(null);
 
   function onProbed() {
     if (--pending > 0) return;
-    const validItems = found.filter(Boolean);
-    if (validItems.length === 0) return;
-    buildCarousel(validItems);
+    const valid = found.filter(Boolean);
+    if (valid.length === 0) return;
+    buildCarousel(valid);
   }
 
   ITEMS.forEach((item, idx) => {
@@ -432,40 +435,172 @@ if (cursor && follower && window.matchMedia("(hover: hover)").matches) {
     }
   });
 
-  function buildCarousel(validItems) {
-    const total = validItems.length;
+  // ── Construção do track ─────────────────────────
+  function buildCarousel(valid) {
+    const N = valid.length;
     const track = document.createElement("div");
     track.className = "carousel__track";
     track.style.transition = "none";
 
-    // Layout: [cloneLast] [item0 … itemN-1] [cloneFirst]
-    // trackIdx: 0 = cloneLast, 1…total = reais, total+1 = cloneFirst
-    const cloneLast = makeCard(validItems[total - 1], false);
-    cloneLast.dataset.clone = "last";
-    track.appendChild(cloneLast);
-
-    validItems.forEach((item, i) => {
-      track.appendChild(makeCard(item, i === 0));
-    });
-
-    const cloneFirst = makeCard(validItems[0], false);
-    cloneFirst.dataset.clone = "first";
-    track.appendChild(cloneFirst);
+    if (isDesktop()) {
+      // 3 cópias: A(0..N-1) | B(N..2N-1) | C(2N..3N-1)
+      // Começa no índice N (primeiro item de B)
+      for (let copy = 0; copy < 3; copy++) {
+        valid.forEach((item, i) => {
+          // Só o primeiro item de B começa como active
+          track.appendChild(makeCard(item, copy === 1 && i === 0));
+        });
+      }
+    } else {
+      // Mobile: clone apenas do último e do primeiro
+      // trackIdx 0 = cloneLast | 1..N = reais | N+1 = cloneFirst
+      const cloneLast = makeCard(valid[N - 1], false);
+      cloneLast.dataset.clone = "last";
+      track.appendChild(cloneLast);
+      valid.forEach((item, i) => track.appendChild(makeCard(item, i === 0)));
+      const cloneFirst = makeCard(valid[0], false);
+      cloneFirst.dataset.clone = "first";
+      track.appendChild(cloneFirst);
+    }
 
     carousel.appendChild(track);
-    setupCarousel(track, total);
+
+    if (isDesktop()) {
+      setupDesktop(track, N);
+    } else {
+      setupMobile(track, N);
+    }
   }
 
-  function setupCarousel(track, total) {
-    // Começa no primeiro item real (idx 1)
+  // ── Helpers partilhados ─────────────────────────
+  function allCards(track) { return [...track.querySelectorAll(".video-card")]; }
+
+  function activateCard(track, idx) {
+    allCards(track).forEach((c, i) => {
+      const active = i === idx;
+      c.classList.toggle("active", active);
+      const v = c.querySelector("video");
+      if (!v) return;
+      if (active) {
+        v.controls = true;
+        v.play().catch(() => {});
+      } else {
+        v.pause();
+        v.removeAttribute("controls");
+      }
+    });
+  }
+
+  function translateFor(idx) {
+    return carousel.offsetWidth / 2 - getCardW() / 2 - idx * (getCardW() + GAP);
+  }
+
+  function applyPos(track, idx, animate) {
+    if (animate) {
+      track.style.transition = "transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+    } else {
+      track.style.transition = "none";
+      void track.offsetWidth; // reflow síncrono — sem batching
+    }
+    track.style.transform = `translateX(${translateFor(idx)}px)`;
+  }
+
+  // ════════════════════════════════════════
+  // DESKTOP — 3 cópias, wrap invisível
+  // ════════════════════════════════════════
+  function setupDesktop(track, N) {
+    let current = N; // começa no início da cópia B
+    let animating = false;
+
+    function goTo(idx) {
+      if (animating) return;
+      animating = true;
+      current = idx;
+      activateCard(track, current);
+      applyPos(track, current, true);
+    }
+
+    function wrapIfNeeded() {
+      // Entrou na cópia A → salta para equivalente em B
+      if (current < N) {
+        current += N;
+        applyPos(track, current, false);
+        activateCard(track, current);
+        return;
+      }
+      // Entrou na cópia C → salta para equivalente em B
+      if (current >= 2 * N) {
+        current -= N;
+        applyPos(track, current, false);
+        activateCard(track, current);
+      }
+    }
+
+    track.addEventListener("transitionend", (e) => {
+      if (e.target !== track || e.propertyName !== "transform") return;
+      wrapIfNeeded();
+      animating = false;
+    });
+
+    $("#videoPrev")?.addEventListener("click", () => goTo(current - 1));
+    $("#videoNext")?.addEventListener("click", () => goTo(current + 1));
+
+    // Click num card lateral
+    track.addEventListener("click", (e) => {
+      if (animating) return;
+      const card = e.target.closest(".video-card");
+      if (!card) return;
+      const idx = allCards(track).indexOf(card);
+      if (idx !== -1 && idx !== current) goTo(idx);
+    });
+
+    // Swipe touch (tablets em modo desktop)
+    let tx0 = 0, ty0 = 0, tDragging = false;
+    carousel.addEventListener("touchstart", (e) => {
+      tx0 = e.touches[0].clientX; ty0 = e.touches[0].clientY; tDragging = false;
+    }, { passive: true });
+    carousel.addEventListener("touchmove", (e) => {
+      const dx = Math.abs(e.touches[0].clientX - tx0);
+      const dy = Math.abs(e.touches[0].clientY - ty0);
+      if (dx > dy && dx > 8) { tDragging = true; e.preventDefault(); }
+    }, { passive: false });
+    carousel.addEventListener("touchend", (e) => {
+      if (!tDragging) return;
+      const dx = e.changedTouches[0].clientX - tx0;
+      if (dx < -50) goTo(current + 1);
+      else if (dx > 50) goTo(current - 1);
+    }, { passive: true });
+
+    function init() { applyPos(track, current, false); activateCard(track, current); }
+    document.readyState === "complete" ? init() : window.addEventListener("load", init, { once: true });
+
+    let rTimer;
+    window.addEventListener("resize", () => {
+      clearTimeout(rTimer);
+      rTimer = setTimeout(() => applyPos(track, current, false), 150);
+    });
+
+    const section = document.getElementById("videos");
+    if (section) {
+      new IntersectionObserver(([entry]) => {
+        if (!entry.isIntersecting) {
+          allCards(track).forEach(c => c.querySelector("video")?.pause());
+        } else {
+          allCards(track)[current]?.querySelector("video")?.play().catch(() => {});
+        }
+      }, { threshold: 0.2 }).observe(section);
+    }
+  }
+
+  // ════════════════════════════════════════
+  // MOBILE — clone único, comportamento original
+  // ════════════════════════════════════════
+  function setupMobile(track, total) {
     let trackIdx = 1;
     let isAnimating = false;
 
     function getTranslateX(idx) {
-      const CARD_W = getCardW();
-      const STEP = CARD_W + GAP;
-      // Centraliza o card ativo no viewport do carrossel
-      return carousel.offsetWidth / 2 - CARD_W / 2 - idx * STEP;
+      return carousel.offsetWidth / 2 - getCardW() / 2 - idx * (getCardW() + GAP);
     }
 
     function setPos(idx, animate) {
@@ -473,29 +608,19 @@ if (cursor && follower && window.matchMedia("(hover: hover)").matches) {
         track.style.transition = "transform 0.5s var(--ease-out)";
       } else {
         track.style.transition = "none";
-        // Força reflow para garantir que "none" seja aplicado antes do próximo frame
         track.offsetHeight; // eslint-disable-line no-unused-expressions
       }
       track.style.transform = `translateX(${getTranslateX(idx)}px)`;
     }
 
-    function allCards() {
-      return [...track.querySelectorAll(".video-card")];
-    }
-
-    function activateCard(idx) {
-      allCards().forEach((c, i) => {
+    function activateIdx(idx) {
+      allCards(track).forEach((c, i) => {
         const active = i === idx;
         c.classList.toggle("active", active);
         const v = c.querySelector("video");
         if (!v) return;
-        if (active) {
-          v.controls = true;
-          v.play().catch(() => {});
-        } else {
-          v.pause();
-          v.controls = false;
-        }
+        if (active) { v.controls = true; v.play().catch(() => {}); }
+        else { v.pause(); v.controls = false; }
       });
     }
 
@@ -503,108 +628,68 @@ if (cursor && follower && window.matchMedia("(hover: hover)").matches) {
       if (isAnimating) return;
       isAnimating = true;
       trackIdx = idx;
-
-      // Ativa o card destino (mesmo que seja clone — visualmente correto)
-      activateCard(trackIdx);
+      activateIdx(trackIdx);
       setPos(trackIdx, true);
     }
 
-    // Ao terminar a transição, verifica se chegou num clone e teleporta
     track.addEventListener("transitionend", (e) => {
-      // Ignora transitionend que borbulha de filhos (vídeos, etc.)
       if (e.target !== track) return;
-
       if (trackIdx === 0) {
-        // Estava no clone do ÚLTIMO → teleporta para o último real
-        trackIdx = total;
-        setPos(trackIdx, false);
-        activateCard(trackIdx);
+        trackIdx = total; setPos(trackIdx, false); activateIdx(trackIdx);
       } else if (trackIdx === total + 1) {
-        // Estava no clone do PRIMEIRO → teleporta para o primeiro real
-        trackIdx = 1;
-        setPos(trackIdx, false);
-        activateCard(trackIdx);
+        trackIdx = 1; setPos(trackIdx, false); activateIdx(trackIdx);
       }
-
       isAnimating = false;
     });
 
-    // Botões de navegação
     $("#videoPrev")?.addEventListener("click", () => goTo(trackIdx - 1));
     $("#videoNext")?.addEventListener("click", () => goTo(trackIdx + 1));
 
-    // Click em card não-ativo para navegar até ele
-    allCards().forEach((card, i) => {
+    allCards(track).forEach((card, i) => {
       card.addEventListener("click", () => {
         if (!isAnimating && i !== trackIdx) goTo(i);
       });
     });
 
-    // ── Swipe touch ──────────────────────────────────
-    let touchStartX = 0;
-    let touchStartY = 0;
-    let isSwiping = false;
-
+    let touchStartX = 0, touchStartY = 0, isSwiping = false;
     carousel.addEventListener("touchstart", (e) => {
       touchStartX = e.touches[0].clientX;
       touchStartY = e.touches[0].clientY;
       isSwiping = false;
     }, { passive: true });
-
     carousel.addEventListener("touchmove", (e) => {
       const dx = Math.abs(e.touches[0].clientX - touchStartX);
       const dy = Math.abs(e.touches[0].clientY - touchStartY);
-      // Só previne scroll vertical se o movimento for predominantemente horizontal
-      if (dx > dy && dx > 8) {
-        isSwiping = true;
-        e.preventDefault();
-      }
+      if (dx > dy && dx > 8) { isSwiping = true; e.preventDefault(); }
     }, { passive: false });
-
     carousel.addEventListener("touchend", (e) => {
       if (!isSwiping) return;
       const dx = e.changedTouches[0].clientX - touchStartX;
-      const THRESHOLD = 50;
-      if (dx < -THRESHOLD) goTo(trackIdx + 1); // swipe esquerda → próximo
-      else if (dx > THRESHOLD) goTo(trackIdx - 1); // swipe direita → anterior
+      if (dx < -50) goTo(trackIdx + 1);
+      else if (dx > 50) goTo(trackIdx - 1);
     }, { passive: true });
 
-    // ── Posição inicial ──────────────────────────────
-    function initPosition() {
-      setPos(trackIdx, false);
-      activateCard(trackIdx);
-    }
-    if (document.readyState === "complete") {
-      initPosition();
-    } else {
-      window.addEventListener("load", initPosition, { once: true });
-    }
+    function initPosition() { setPos(trackIdx, false); activateIdx(trackIdx); }
+    document.readyState === "complete" ? initPosition() : window.addEventListener("load", initPosition, { once: true });
 
-    // Recalcula ao redimensionar (muda CARD_W entre mobile/desktop)
     let resizeTimer;
     window.addEventListener("resize", () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => setPos(trackIdx, false), 150);
     });
 
-    // Pausa ao sair do viewport
     const section = document.getElementById("videos");
     if (section) {
-      new IntersectionObserver(
-        ([e]) => {
-          if (!e.isIntersecting) {
-            allCards().forEach((c) => c.querySelector("video")?.pause());
-          } else {
-            const v = allCards()[trackIdx]?.querySelector("video");
-            if (v) v.play().catch(() => {});
-          }
-        },
-        { threshold: 0.2 },
-      ).observe(section);
+      new IntersectionObserver(([e]) => {
+        if (!e.isIntersecting) {
+          allCards(track).forEach(c => c.querySelector("video")?.pause());
+        } else {
+          allCards(track)[trackIdx]?.querySelector("video")?.play().catch(() => {});
+        }
+      }, { threshold: 0.2 }).observe(section);
     }
   }
 })();
-
 
 /* ════════════════════════════════════════
    7. GSAP ANIMATIONS
