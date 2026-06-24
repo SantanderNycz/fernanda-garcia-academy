@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/cursos", "destination": "/cursos.html" },
+    { "source": "/lash-lifting", "destination": "/lash-lifting.html" },
+    { "source": "/brow-lamination", "destination": "/brow-lamination.html" },
+    { "source": "/lash-lifting-coreano", "destination": "/lash-lifting-coreano.html" }
+  ]
+}
