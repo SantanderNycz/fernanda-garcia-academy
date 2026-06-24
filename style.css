@@ -1370,10 +1370,7 @@ img {
     grid-template-columns: repeat(4, 1fr);
     grid-auto-rows: 160px;
     grid-auto-flow: row dense;
-    background-color: var(--color-dark);
-    background-image: url("logos/pattern-branco-transp.png");
-    background-size: 600px auto;
-    background-repeat: repeat;
+    background-image: none;
   }
   .mosaic__item:nth-child(6n + 1) {
     grid-column: span 4;
@@ -1397,7 +1394,7 @@ img {
 
   /* card extra que preenche o espaço vazio criado pelo span-2-rows do item 5 */
   .mosaic__item:nth-child(7) {
-    display: block;
+    display: flex;
     grid-column: span 2;
     grid-row: span 1;
   }
