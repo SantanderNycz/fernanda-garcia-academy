@@ -267,6 +267,7 @@
 
 .footer__bottom {
   text-align: center;
+  margin: -2rem 0 0 0;
   font-size: 0.9rem;
   color: rgba(254, 254, 254, 0.2);
 }
