@@ -212,17 +212,17 @@ if (cursor && follower && window.matchMedia("(hover: hover)").matches) {
 (function loadMosaic() {
   // Lista fixa — ordem preservada, 4 fotos = 1 linha do mosaico
   const FOTOS = [
-    "fotos/Mosaico 1.png",
-    "fotos/Mosaico 2.JPG",
-    "fotos/Mosaico 3.JPG",
-    "fotos/Mosaico 4.JPG",
+    "fotos/Mosaico-1.png",
+    "fotos/Mosaico-2.JPG",
+    "fotos/Mosaico-3.JPG",
+    "fotos/Mosaico-4.JPG",
   ];
 
   const photoCandidates = FOTOS;
 
   // Patterns reais na pasta logos/
   // idx 0 = Preto → card accent (fundo marrom); idx 1 = Branco → card dark (fundo escuro)
-  const knownPatterns = ["logos/pattern preto transp.png", "logos/pattern branco transp.png"];
+  const knownPatterns = ["logos/pattern-preto-transp.png", "logos/pattern-branco-transp.png"];
 
   // Cards de cor sólida que aparecem no mosaico (intercalados)
   const CARDS = [
@@ -361,15 +361,15 @@ if (cursor && follower && window.matchMedia("(hover: hover)").matches) {
 (function initCarousel() {
   const ITEMS = [
     { type: "video", src: "videos/Principal.mp4" },
-    { type: "video", src: "videos/Lash 1.mp4" },
-    { type: "video", src: "videos/Brow - depoimento.mp4" },
-    { type: "video", src: "videos/divulg 1.mp4" },
+    { type: "video", src: "videos/Lash-1.mp4" },
+    { type: "video", src: "videos/Brow-depoimento.mp4" },
+    { type: "video", src: "videos/divulg-1.mp4" },
     { type: "video", src: "videos/Brow-lam.mp4" },
     { type: "video", src: "videos/BROW LAMINATION.mp4" },
     { type: "video", src: "videos/design sob.mp4" },
-    { type: "video", src: "videos/Pagina - Lash.mp4" },
-    { type: "video", src: "videos/Pagina - Brow.mp4" },
-    { type: "video", src: "videos/Pagina - Lash Coreano.mp4" },
+    { type: "video", src: "videos/Pagina-Lash.mp4" },
+    { type: "video", src: "videos/Pagina-Brow.mp4" },
+    { type: "video", src: "videos/Pagina-Lash-Coreano.mp4" },
     { type: "photo", src: "videos/antes-depois1.JPG" },
     { type: "photo", src: "videos/antes-depois2.JPG" },
     { type: "photo", src: "videos/antes-depois3.JPG" },

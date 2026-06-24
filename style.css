@@ -1365,7 +1365,7 @@ img {
     grid-template-columns: repeat(4, 1fr);
     grid-auto-rows: 160px;
     background-color: var(--color-dark);
-    background-image: url("logos/pattern branco transp.png");
+    background-image: url("logos/pattern-branco-transp.png");
     background-size: 600px auto;
     background-repeat: repeat;
   }
