@@ -851,6 +851,7 @@ img {
 .videos-section {
   background: #f0ebe5;
   overflow: hidden;
+  padding-bottom: 2.2rem;
 }
 
 .carousel-wrap {
@@ -866,6 +867,7 @@ img {
   display: flex;
   align-items: center;
   min-height: 600px;
+  padding: 0 0 5rem 0;
 }
 .carousel__track {
   display: flex;
@@ -1433,7 +1435,7 @@ img {
     height: 38px;
   }
   .carousel-wrap {
-    gap: 0.5rem;
+    gap: 0.7rem;
   }
 
   /* Garante que o track não vaza para fora em mobile */
@@ -1468,6 +1470,15 @@ img {
   .cursor,
   .cursor-follower {
     display: none;
+  }
+  .lang-switch {
+    margin-left: 20rem;
+  }
+}
+
+@media (max-width: 650px) {
+  .lang-switch {
+    margin-left: 10rem;
   }
 }
 
