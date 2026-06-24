@@ -1,0 +1,174 @@
+/* ── Página de Cursos ── */
+.cursos-hero {
+  background: var(--color-dark);
+  padding: clamp(120px, 18vw, 200px) 0 clamp(60px, 8vw, 100px);
+  text-align: center;
+}
+
+.cursos-hero .section-label {
+  color: var(--color-accent);
+}
+
+.cursos-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 300;
+  color: var(--color-light);
+  margin-top: 0.5rem;
+}
+
+.cursos-hero h1 em {
+  color: var(--color-accent);
+}
+
+.cursos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: clamp(60px, 8vw, 100px) clamp(20px, 5vw, 60px);
+  max-width: 1100px;
+  margin-inline: auto;
+}
+
+.curso-card {
+  background: var(--color-light);
+  border: 1px solid rgba(167, 135, 114, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition:
+    transform 0.35s var(--ease-out),
+    box-shadow 0.35s;
+}
+
+.curso-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(40, 40, 41, 0.1);
+}
+
+.curso-card.unavailable {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.curso-card__img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: linear-gradient(135deg, #d4c5b8, #bda898);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.curso-card__img-placeholder {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(135deg, #6a5555 0%, #3a2d2d 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.curso-card__img-placeholder svg {
+  width: 48px;
+  height: 48px;
+  color: var(--color-accent);
+  opacity: 0.5;
+}
+
+.curso-card__img-placeholder img {
+  width: 35%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0) saturate(100%) invert(62%) sepia(18%) saturate(320%)
+    hue-rotate(340deg) brightness(95%);
+}
+
+.curso-card__body {
+  padding: 2rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.curso-card__tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.curso-card.unavailable .curso-card__tag {
+  color: rgba(40, 40, 41, 0.4);
+}
+
+.curso-card__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 300;
+  color: rgba(40, 40, 41, 0.9);
+  line-height: 1.2;
+}
+
+.curso-card__desc {
+  font-size: 0.85rem;
+  line-height: 1.8;
+  color: rgba(40, 40, 41, 0.65);
+  flex: 1;
+}
+
+.curso-card__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-light);
+  background: var(--color-accent);
+  padding: 0.35rem 0.8rem;
+  border-radius: 2px;
+  align-self: flex-start;
+}
+
+.curso-card.unavailable .curso-card__badge {
+  background: rgba(40, 40, 41, 0.2);
+  color: rgba(40, 40, 41, 0.5);
+}
+
+.curso-card__cta {
+  margin-top: 0.5rem;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(254, 254, 254, 0.5);
+  transition: color 0.3s;
+  margin-top: 1.5rem;
+}
+
+.back-link:hover {
+  color: var(--color-accent);
+}
+
+.back-link svg {
+  width: 16px;
+  height: 16px;
+}
+
+.footer__bottom {
+  text-align: center;
+  font-size: 0.72rem;
+  color: rgba(254, 254, 254, 0.2);
+}
