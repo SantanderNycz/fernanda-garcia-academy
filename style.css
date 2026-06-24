@@ -1290,7 +1290,7 @@ img {
 }
 .footer__bottom {
   text-align: center;
-  font-size: .9rem;
+  font-size: 0.9rem;
   color: rgba(254, 254, 254, 0.2);
 }
 
@@ -1477,5 +1477,15 @@ img {
   }
   .hero__scroll-hint {
     display: none;
+  }
+
+  .lang-switch {
+    margin-left: 6rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .lang-switch {
+    margin-left: 4rem;
   }
 }
