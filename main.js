@@ -795,14 +795,14 @@ form?.addEventListener("submit", (e) => {
 
   // Build WhatsApp message
   const msgParts = [
-    `Olá Fernanda! 😊`,
+    `Olá Fernanda! \u{1F60A}`,
     ``,
     `Meu nome é *${nome.value.trim()}* e gostaria de saber mais sobre os *cursos disponíveis*.`,
     ``,
-    `📱 Telefone: ${ddi?.value || "+55"} ${telefone.value.trim()}`,
+    `\u{1F4F1} Telefone: ${ddi?.value || "+55"} ${telefone.value.trim()}`,
   ];
   if (mensagem.value.trim()) {
-    msgParts.push(``, `💬 Mensagem: ${mensagem.value.trim()}`);
+    msgParts.push(``, `\u{1F4AC} Mensagem: ${mensagem.value.trim()}`);
   }
 
   const encoded = encodeURIComponent(msgParts.join("\n"));
