@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://fernanda-garcia-academy.vercel.app/sitemap.xml
+Sitemap: https://fernandagarciaacademy.com/sitemap.xml
