@@ -40,12 +40,13 @@
         <img class="nav-logo nav-logo--dark" src="logos/marca-dagua-3.png" alt="Fernanda Garcia Academy" onerror="this.style.visibility='hidden'" />
       </a>
       <nav class="navbar__nav">
-        <a href="/#sobre">Sobre</a>
-        <a href="/#portfolio">Portfólio</a>
-        <a href="/#videos">Vídeos</a>
-        <a href="/cursos">Cursos</a>
-        <a href="/#contato" class="nav-cta">Me inscrever</a>
+        <a href="/#sobre" data-i18n="nav.sobre">Sobre</a>
+        <a href="/#portfolio" data-i18n="nav.portfolio">Portfólio</a>
+        <a href="/#videos" data-i18n="nav.videos">Vídeos</a>
+        <a href="/cursos" data-i18n="nav.cursos">Cursos</a>
+        <a href="/#contato" class="nav-cta" data-i18n="nav.cta">Me inscrever</a>
       </nav>
+      <button class="lang-switch" id="langSwitch" aria-label="Switch language">PT</button>
       <button class="navbar__burger" id="burger" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
@@ -62,13 +63,13 @@
   <main>
     <section class="cursos-hero">
       <div class="container">
-        <span class="section-label">Fernanda Garcia Academy</span>
-        <h1>Nossos <em>cursos</em></h1>
+        <span class="section-label" data-i18n="cursos.label">Fernanda Garcia Academy</span>
+        <h1 data-i18n="cursos.h1">Nossos <em>cursos</em></h1>
         <a href="/" class="back-link">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M19 12H5M12 5l-7 7 7 7" />
           </svg>
-          Voltar ao início
+          <span data-i18n="cursos.back">Voltar ao início</span>
         </a>
       </div>
     </section>
@@ -83,12 +84,12 @@
           </div> -->
           <img src="Capas/Lash.jpeg" alt="Lash Lifting" />
           <div class="curso-card__body">
-            <span class="curso-card__tag">Curso iniciante</span>
-            <h2 class="curso-card__title">Lash Lifting Profissional</h2>
-            <p class="curso-card__desc">O guia completo para curvar, projetar e alinhar cílios naturais, da química dos produtos à prática de bancada. Resultado dura 45 – 60 dias.</p>
-            <span class="curso-card__badge">Disponível</span>
+            <span class="curso-card__tag" data-i18n="cursos.lash.tag">Curso iniciante</span>
+            <h2 class="curso-card__title" data-i18n="cursos.lash.title">Lash Lifting Profissional</h2>
+            <p class="curso-card__desc" data-i18n="cursos.lash.desc">O guia completo para curvar, projetar e alinhar cílios naturais, da química dos produtos à prática de bancada. Resultado dura 45 – 60 dias.</p>
+            <span class="curso-card__badge" data-i18n="cursos.lash.badge">Disponível</span>
             <div class="curso-card__cta">
-              <a href="/lash-lifting" class="btn btn--primary">Ver curso</a>
+              <a href="/lash-lifting" class="btn btn--primary" data-i18n="cursos.lash.cta">Ver curso</a>
             </div>
           </div>
         </article>
@@ -101,12 +102,12 @@
           <!-- <img src="Capas/Brow.jpeg" alt="Brow Lamination" /> -->
           <img src="Capas/Brow.png" alt="Brow Lamination" />
           <div class="curso-card__body">
-            <span class="curso-card__tag">Curso completo</span>
-            <h2 class="curso-card__title">Brow Lamination + Design Estratégico</h2>
-            <p class="curso-card__desc">Laminação e design visagista em um único curso. Sobrancelhas personalizadas para cada rosto, com resultado duradouro de 4 a 6 semanas.</p>
-            <span class="curso-card__badge">Disponível</span>
+            <span class="curso-card__tag" data-i18n="cursos.brow.tag">Curso completo</span>
+            <h2 class="curso-card__title" data-i18n="cursos.brow.title">Brow Lamination + Design Estratégico</h2>
+            <p class="curso-card__desc" data-i18n="cursos.brow.desc">Laminação e design visagista em um único curso. Sobrancelhas personalizadas para cada rosto, com resultado duradouro de 4 a 6 semanas.</p>
+            <span class="curso-card__badge" data-i18n="cursos.brow.badge">Disponível</span>
             <div class="curso-card__cta">
-              <a href="/brow-lamination" class="btn btn--primary">Ver curso</a>
+              <a href="/brow-lamination" class="btn btn--primary" data-i18n="cursos.brow.cta">Ver curso</a>
             </div>
           </div>
         </article>
@@ -119,12 +120,12 @@
           <!-- <img src="Capas/Lash-Coreano.JPEG" alt="Lash Lifting Método Coreano" /> -->
           <img src="Capas/Lash-Coreano.png" alt="Lash Lifting Método Coreano" />
           <div class="curso-card__body">
-            <span class="curso-card__tag">Aperfeiçoamento · Avançado</span>
-            <h2 class="curso-card__title">Lash Lifting - Método Coreano</h2>
-            <p class="curso-card__desc">Para profissionais que já dominam o método tradicional. Técnica de aplicação direta com maior velocidade, controle e segurança no procedimento.</p>
-            <span class="curso-card__badge">Disponível</span>
+            <span class="curso-card__tag" data-i18n="cursos.coreano.tag">Aperfeiçoamento · Avançado</span>
+            <h2 class="curso-card__title" data-i18n="cursos.coreano.title">Lash Lifting - Método Coreano</h2>
+            <p class="curso-card__desc" data-i18n="cursos.coreano.desc">Para profissionais que já dominam o método tradicional. Técnica de aplicação direta com maior velocidade, controle e segurança no procedimento.</p>
+            <span class="curso-card__badge" data-i18n="cursos.coreano.badge">Disponível</span>
             <div class="curso-card__cta">
-              <a href="/lash-lifting-coreano" class="btn btn--primary">Ver curso</a>
+              <a href="/lash-lifting-coreano" class="btn btn--primary" data-i18n="cursos.coreano.cta">Ver curso</a>
             </div>
           </div>
         </article>
@@ -137,10 +138,10 @@
           <!-- <img src="Capas/Design.jpeg" alt="Design de Sobrancelha" /> -->
           <img src="Capas/Design.png" alt="Design de Sobrancelha" />
           <div class="curso-card__body">
-            <span class="curso-card__tag">Em breve</span>
-            <h2 class="curso-card__title">Design de Sobrancelha</h2>
-            <p class="curso-card__desc">Mapeamento facial, técnicas de design e pigmentação para criar sobrancelhas personalizadas e harmoniosas. Conteúdo em desenvolvimento.</p>
-            <span class="curso-card__badge">Indisponível no momento</span>
+            <span class="curso-card__tag" data-i18n="cursos.design.tag">Em breve</span>
+            <h2 class="curso-card__title" data-i18n="cursos.design.title">Design de Sobrancelha</h2>
+            <p class="curso-card__desc" data-i18n="cursos.design.desc">Mapeamento facial, técnicas de design e pigmentação para criar sobrancelhas personalizadas e harmoniosas. Conteúdo em desenvolvimento.</p>
+            <span class="curso-card__badge" data-i18n="cursos.design.badge">Indisponível no momento</span>
           </div>
         </article>
 

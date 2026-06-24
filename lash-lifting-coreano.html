@@ -47,12 +47,13 @@
         <img class="nav-logo nav-logo--dark" src="logos/marca-dagua-3.png" alt="Fernanda Garcia Academy" onerror="this.style.visibility='hidden'" />
       </a>
       <nav class="navbar__nav">
-        <a href="/#sobre">Sobre</a>
-        <a href="/#portfolio">Portfólio</a>
-        <a href="/#videos">Vídeos</a>
-        <a href="/cursos">Cursos</a>
-        <a href="/#contato" class="nav-cta">Me inscrever</a>
+        <a href="/#sobre" data-i18n="nav.sobre">Sobre</a>
+        <a href="/#portfolio" data-i18n="nav.portfolio">Portfólio</a>
+        <a href="/#videos" data-i18n="nav.videos">Vídeos</a>
+        <a href="/cursos" data-i18n="nav.cursos">Cursos</a>
+        <a href="/#contato" class="nav-cta" data-i18n="nav.cta">Me inscrever</a>
       </nav>
+      <button class="lang-switch" id="langSwitch" aria-label="Switch language">PT</button>
       <button class="navbar__burger" id="burger" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
@@ -73,11 +74,11 @@
         <div class="curso-hero__inner">
           <a href="/cursos" class="back-nav">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-            Todos os cursos
+            <span data-i18n="coreano.back">Todos os cursos</span>
           </a>
-          <span class="curso-hero__tag">Curso de aperfeiçoamento · Nível avançado</span>
-          <h1>Lash Lifting<br /><em>Método Coreano</em></h1>
-          <p class="curso-hero__sub">Para profissionais que já dominam a técnica tradicional e querem elevar eficiência, velocidade e segurança ao próximo nível.</p>
+          <span class="curso-hero__tag" data-i18n="coreano.tag">Curso de aperfeiçoamento · Nível avançado</span>
+          <h1 data-i18n="coreano.h1">Lash Lifting<br /><em>Método Coreano</em></h1>
+          <p class="curso-hero__sub" data-i18n="coreano.sub">Para profissionais que já dominam a técnica tradicional e querem elevar eficiência, velocidade e segurança ao próximo nível.</p>
         </div>
       </div>
     </section>
@@ -87,76 +88,76 @@
         <div class="curso-body__grid">
 
           <div class="curso-desc">
-            <h2>O Lash Lifting no <em>Método Coreano</em></h2>
-            <p>O Lash Lifting no Método Coreano é uma especialização avançada voltada para profissionais que já dominam a técnica tradicional e desejam alcançar o próximo nível de eficiência e controle em mesa. O resultado estético entrega o mesmo visual impecável e de alto impacto do método convencional, fios curvados, alinhados e destacados, mas a grande revolução está na dinâmica do atendimento e na segurança do processo.</p>
+            <h2 data-i18n="coreano.h2">O Lash Lifting no <em>Método Coreano</em></h2>
+            <p data-i18n="coreano.p1">O Lash Lifting no Método Coreano é uma especialização avançada voltada para profissionais que já dominam a técnica tradicional e desejam alcançar o próximo nível de eficiência e controle em mesa. O resultado estético entrega o mesmo visual impecável e de alto impacto do método convencional, fios curvados, alinhados e destacados, mas a grande revolução está na dinâmica do atendimento e na segurança do processo.</p>
 
             <div class="aviso-nivel">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-              <span>Este curso é voltado exclusivamente para profissionais que já possuem experiência no método tradicional de Lash Lifting. O pré-requisito é a bagagem prática adquirida no método convencional.</span>
+              <span data-i18n="coreano.aviso">Este curso é voltado exclusivamente para profissionais que já possuem experiência no método tradicional de Lash Lifting. O pré-requisito é a bagagem prática adquirida no método convencional.</span>
             </div>
 
-            <p>Esta proposta avançada destaca-se por três pilares comerciais e técnicos indispensáveis:</p>
+            <p data-i18n="coreano.intro">Esta proposta avançada destaca-se por três pilares comerciais e técnicos indispensáveis:</p>
 
             <div class="pilares">
               <div class="pilar">
-                <span class="pilar__num">01</span>
+                <span class="pilar__num" data-i18n="coreano.p1.num">01</span>
                 <div class="pilar__text">
-                  <strong>Faturamento Escalável pelo Menor Tempo</strong>
-                  <p>Com uma metodologia ágil, o tempo de procedimento é significativamente reduzido, permitindo que você aumente o fluxo de atendimentos diários e multiplique o faturamento.</p>
+                  <strong data-i18n="coreano.p1.title">Faturamento Escalável pelo Menor Tempo</strong>
+                  <p data-i18n="coreano.p1.desc">Com uma metodologia ágil, o tempo de procedimento é significativamente reduzido, permitindo que você aumente o fluxo de atendimentos diários e multiplique o faturamento.</p>
                 </div>
               </div>
               <div class="pilar">
-                <span class="pilar__num">02</span>
+                <span class="pilar__num" data-i18n="coreano.p2.num">02</span>
                 <div class="pilar__text">
-                  <strong>Controle Direto e Segurança Extrema</strong>
-                  <p>O método baseia-se em uma aplicação onde os fios são atingidos pelo produto de forma direta, possibilitando controle muito maior sobre a ação da química, tornando o procedimento extremamente seguro e previsível.</p>
+                  <strong data-i18n="coreano.p2.title">Controle Direto e Segurança Extrema</strong>
+                  <p data-i18n="coreano.p2.desc">O método baseia-se em uma aplicação onde os fios são atingidos pelo produto de forma direta, possibilitando controle muito maior sobre a ação da química, tornando o procedimento extremamente seguro e previsível.</p>
                 </div>
               </div>
               <div class="pilar">
-                <span class="pilar__num">03</span>
+                <span class="pilar__num" data-i18n="coreano.p3.num">03</span>
                 <div class="pilar__text">
-                  <strong>Exigência de Expertise Prática</strong>
-                  <p>Por se tratar de uma técnica de alta precisão e agilidade, este não é um curso para iniciantes. Para se especializar no Método Coreano, o profissional já deve dominar o método tradicional.</p>
+                  <strong data-i18n="coreano.p3.title">Exigência de Expertise Prática</strong>
+                  <p data-i18n="coreano.p3.desc">Por se tratar de uma técnica de alta precisão e agilidade, este não é um curso para iniciantes. Para se especializar no Método Coreano, o profissional já deve dominar o método tradicional.</p>
                 </div>
               </div>
             </div>
 
             <div class="curso-modulos">
-              <h3>Conteúdo do curso</h3>
+              <h3 data-i18n="coreano.modulos">Conteúdo do curso</h3>
               <ul>
-                <li>A Transição do Tradicional para o Coreano</li>
-                <li>A Dinâmica da Aplicação Direta</li>
-                <li>Tipos de Cílios Aptos para a Técnica</li>
-                <li>Cílios Limítrofes</li>
-                <li>Análise Avançada de Moldes</li>
-                <li>Acoplagem de Alta Velocidade</li>
-                <li>Ação do Produto na Aplicação Direta</li>
-                <li>O Cronômetro de Precisão</li>
-                <li>Leitura Visual Avançada</li>
-                <li>Protocolo de Biossegurança Avançado</li>
+                <li data-i18n="coreano.m1">A Transição do Tradicional para o Coreano</li>
+                <li data-i18n="coreano.m2">A Dinâmica da Aplicação Direta</li>
+                <li data-i18n="coreano.m3">Tipos de Cílios Aptos para a Técnica</li>
+                <li data-i18n="coreano.m4">Cílios Limítrofes</li>
+                <li data-i18n="coreano.m5">Análise Avançada de Moldes</li>
+                <li data-i18n="coreano.m6">Acoplagem de Alta Velocidade</li>
+                <li data-i18n="coreano.m7">Ação do Produto na Aplicação Direta</li>
+                <li data-i18n="coreano.m8">O Cronômetro de Precisão</li>
+                <li data-i18n="coreano.m9">Leitura Visual Avançada</li>
+                <li data-i18n="coreano.m10">Protocolo de Biossegurança Avançado</li>
               </ul>
             </div>
           </div>
 
           <aside class="curso-sidebar">
-            <span class="curso-sidebar__label">Fernanda Garcia Academy</span>
-            <h3>Lash Lifting | Método Coreano</h3>
+            <span class="curso-sidebar__label" data-i18n="coreano.sidebar.label">Fernanda Garcia Academy</span>
+            <h3 data-i18n="coreano.sidebar.h3">Lash Lifting | Método Coreano</h3>
             <div class="curso-sidebar__info">
               <span>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                Resultado dura 45–60 dias
+                <span data-i18n="coreano.sidebar.dur">Resultado dura 45–60 dias</span>
               </span>
               <span>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                Nível avançado
+                <span data-i18n="coreano.sidebar.level">Nível avançado</span>
               </span>
               <span>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-                Pré-requisito: método tradicional
+                <span data-i18n="coreano.sidebar.prereq">Pré-requisito: método tradicional</span>
               </span>
             </div>
-            <a href="/#contato" class="btn btn--primary">Quero me inscrever</a>
-            <p class="curso-sidebar__note">Entraremos em contato pelo WhatsApp com todos os detalhes.</p>
+            <a href="/#contato" class="btn btn--primary" data-i18n="coreano.sidebar.cta">Quero me inscrever</a>
+            <p class="curso-sidebar__note" data-i18n="coreano.sidebar.note">Entraremos em contato pelo WhatsApp com todos os detalhes.</p>
           </aside>
 
         </div>
