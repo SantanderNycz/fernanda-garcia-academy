@@ -144,7 +144,8 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
   const img = $("#sobrePhoto");
   if (!img) return;
   img.onload = () => img.classList.add("loaded");
-  img.onerror = () => {}; // mantém o fallback FG se arquivo não existir
+  img.onerror = () => {};
+  if (img.complete && img.naturalWidth > 0) img.classList.add("loaded");
 })();
 
 /* ════════════════════════════════════════
