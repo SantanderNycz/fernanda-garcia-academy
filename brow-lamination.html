@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -35,6 +36,7 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="curso-page.css" />
 </head>
+
 <body class="curso-page">
   <div class="cursor" id="cursor"></div>
   <div class="cursor-follower" id="cursorFollower"></div>
@@ -72,7 +74,9 @@
       <div class="container">
         <div class="curso-hero__inner">
           <a href="/cursos" class="back-nav">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M19 12H5M12 5l-7 7 7 7" />
+            </svg>
             <span data-i18n="brow.back">Todos os cursos</span>
           </a>
           <span class="curso-hero__tag" data-i18n="brow.tag">Curso completo</span>
@@ -117,15 +121,23 @@
             <h3 data-i18n="brow.sidebar.h3">Brow Lamination + Design Estratégico</h3>
             <div class="curso-sidebar__info">
               <span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 6v6l4 2" />
+                </svg>
                 <span data-i18n="brow.sidebar.dur">Resultado dura 4–6 semanas</span>
               </span>
               <span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
                 <span data-i18n="brow.sidebar.level">Nível iniciante ao intermediário</span>
               </span>
               <span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
+                </svg>
                 <span data-i18n="brow.sidebar.mat">Material didático completo</span>
               </span>
             </div>
@@ -138,11 +150,16 @@
     </section>
   </main>
 
-  <footer style="background:var(--color-dark);padding:2rem;text-align:center;">
-    <p style="font-size:0.72rem;letter-spacing:0.15em;color:rgba(254,254,254,0.3);text-transform:uppercase;">© <span id="year"></span> Fernanda Garcia Academy. Todos os direitos reservados.</p>
-    <p style="font-size:0.72rem;letter-spacing:0.15em;color:rgba(254,254,254,0.3);text-transform:uppercase;margin-top:0.5rem;">Desenvolvido por <a href="https://void-studio-vs.vercel.app/" target="_blank" rel="noopener" style="color:rgba(254,254,254,0.5);text-decoration:underline;">Void Studio</a></p>
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__bottom">
+        <p>&copy; <span id="year"></span> Fernanda Garcia Academy. Todos os direitos reservados.</p>
+        <p>Desenvolvido por <a href="https://void-studio-vs.vercel.app/" target="_blank" rel="noopener">Void Studio</a></p>
+      </div>
+    </div>
   </footer>
 
   <script src="main.js"></script>
 </body>
+
 </html>
