@@ -515,11 +515,12 @@ if (cursor && follower && window.matchMedia("(hover: hover)").matches) {
     let photoIdx = 0;
     let cardIdx = 0;
     const totalItems =
-      photos.length + Math.min(CARDS.length, Math.floor(photos.length / 2));
+      photos.length + Math.min(CARDS.length, photos.length - 1);
 
     for (let i = 0; i < totalItems; i++) {
-      // A cada 2 fotos, inserir 1 card
-      const isCard = i % 3 === 2 && cardIdx < CARDS.length;
+      // A cada 2 fotos, inserir 1 card; quando não há mais fotos, preencher com cards
+      const isCard = cardIdx < CARDS.length &&
+        (i % 3 === 2 || photoIdx >= photos.length);
 
       if (isCard) {
         const card = CARDS[cardIdx++ % CARDS.length];
