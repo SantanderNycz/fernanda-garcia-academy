@@ -52,6 +52,13 @@ const TRANSLATIONS = {
     'contato.label': 'Inscrições',
     'contato.h2': 'Pronta para dar<br /><em>o próximo passo?</em>',
     'contato.p': 'Preencha o formulário e entraremos em contato pelo WhatsApp para apresentar todos os detalhes dos cursos disponíveis.',
+    // footer
+    'footer.tagline': 'Transformando paixão em profissão.',
+    'footer.links': 'Links',
+    'footer.contact': 'Contato',
+    'footer.social': 'Redes sociais',
+    'footer.rights': 'Todos os direitos reservados.',
+    'footer.dev': 'Desenvolvido por',
     // cursos.html
     'cursos.label': 'Fernanda Garcia Academy',
     'cursos.h1': 'Nossos <em>cursos</em>',
@@ -214,6 +221,13 @@ const TRANSLATIONS = {
     'contato.label': 'Enrollment',
     'contato.h2': 'Ready to take<br /><em>the next step?</em>',
     'contato.p': 'Fill in the form and we will get in touch via WhatsApp with all the details about our available courses.',
+    // footer
+    'footer.tagline': 'Turning passion into profession.',
+    'footer.links': 'Links',
+    'footer.contact': 'Contact',
+    'footer.social': 'Social media',
+    'footer.rights': 'All rights reserved.',
+    'footer.dev': 'Developed by',
     // cursos.html
     'cursos.label': 'Fernanda Garcia Academy',
     'cursos.h1': 'Our <em>courses</em>',
