@@ -344,7 +344,9 @@ img {
   border-radius: 2px;
   padding: 0.28rem 0.6rem;
   cursor: pointer;
-  transition: color 0.3s, border-color 0.3s;
+  transition:
+    color 0.3s,
+    border-color 0.3s;
   flex-shrink: 0;
 }
 .navbar.scrolled .lang-switch {
@@ -1283,7 +1285,7 @@ img {
 }
 .footer__bottom {
   text-align: center;
-  font-size: 0.72rem;
+  font-size: .9rem;
   color: rgba(254, 254, 254, 0.2);
 }
 
