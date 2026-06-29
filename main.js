@@ -1242,7 +1242,21 @@ $("#telefone")?.addEventListener("input", function () {
 });
 
 /* ════════════════════════════════════════
-   10. FADE-UP — IntersectionObserver
+   10. BACK TO TOP
+════════════════════════════════════════ */
+(function () {
+  const btn = document.getElementById("backToTop");
+  if (!btn) return;
+  window.addEventListener("scroll", () => {
+    btn.classList.toggle("visible", window.scrollY > 400);
+  }, { passive: true });
+  btn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+})();
+
+/* ════════════════════════════════════════
+   11. FADE-UP — IntersectionObserver
 ════════════════════════════════════════ */
 (function () {
   const observer = new IntersectionObserver(
