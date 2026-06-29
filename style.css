@@ -159,11 +159,11 @@ section {
   overflow: hidden;
 }
 .btn--primary {
-  background: var(--color-accent);
+  background: var(--color-accent-dark);
   color: var(--color-light);
 }
 .btn--primary:hover {
-  background: var(--color-accent-dark);
+  background: #6b5448;
   transform: translateY(-2px);
 }
 .btn--outline {
@@ -307,7 +307,7 @@ img {
 }
 
 .nav-cta {
-  background: var(--color-accent) !important;
+  background: var(--color-accent-dark) !important;
   color: var(--color-light) !important;
   padding: 0.1rem 1.4rem;
   display: inline-flex !important;
@@ -325,7 +325,7 @@ img {
   display: none;
 }
 .nav-cta:hover {
-  background: var(--color-accent-dark) !important;
+  background: #6b5448 !important;
   transform: translateY(-1px);
 }
 
