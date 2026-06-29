@@ -1482,6 +1482,41 @@ img {
   }
 }
 
+/* ═══════════════════════════════════════
+   Animações de entrada (IntersectionObserver)
+═══════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-group .reveal:nth-child(1) { transition-delay: 0ms; }
+.reveal-group .reveal:nth-child(2) { transition-delay: 120ms; }
+.reveal-group .reveal:nth-child(3) { transition-delay: 240ms; }
+.reveal-group .reveal:nth-child(4) { transition-delay: 360ms; }
+
+.btn--primary,
+a[href="#contato"],
+a[href*="wa.me"] {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn--primary:hover,
+a[href="#contato"]:hover,
+a[href*="wa.me"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.faq__answer {
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+}
+
 @media (max-width: 480px) {
   .contato__form {
     padding: 1.5rem;

@@ -32,7 +32,10 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" />
+  </noscript>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="curso-page.css" />
 </head>
@@ -87,7 +90,7 @@
       <div class="container">
         <div class="curso-body__grid">
 
-          <div class="curso-desc">
+          <div class="curso-desc reveal">
             <h2 data-i18n="coreano.h2">O Lash Lifting no <em>Método Coreano</em></h2>
             <p data-i18n="coreano.p1">O Lash Lifting no Método Coreano é uma especialização avançada voltada para profissionais que já dominam a técnica tradicional e desejam alcançar o próximo nível de eficiência e controle em mesa. O resultado estético entrega o mesmo visual impecável e de alto impacto do método convencional, fios curvados, alinhados e destacados, mas a grande revolução está na dinâmica do atendimento e na segurança do processo.</p>
 
@@ -139,7 +142,7 @@
             </div>
           </div>
 
-          <aside class="curso-sidebar">
+          <aside class="curso-sidebar reveal">
             <span class="curso-sidebar__label" data-i18n="coreano.sidebar.label">Fernanda Garcia Academy</span>
             <h3 data-i18n="coreano.sidebar.h3">Lash Lifting | Método Coreano</h3>
             <div class="curso-sidebar__info">
@@ -174,6 +177,6 @@
     </div>
   </footer>
 
-  <script src="main.js"></script>
+  <script src="main.js" defer></script>
 </body>
 </html>

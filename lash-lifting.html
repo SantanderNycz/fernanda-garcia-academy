@@ -32,7 +32,10 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" />
+  </noscript>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="curso-page.css" />
 </head>
@@ -87,7 +90,7 @@
       <div class="container">
         <div class="curso-body__grid">
 
-          <div class="curso-desc">
+          <div class="curso-desc reveal">
             <h2 data-i18n="lash.h2">O que é o <em>Lash Lifting?</em></h2>
             <p data-i18n="lash.p1">O Lash Lifting é um procedimento estético inovador que curva, projeta e alinha os fios naturais dos cílios, sem a necessidade de aplicar extensões artificiais ou alongamentos.</p>
             <p data-i18n="lash.p2">Através de uma técnica precisa e do uso de produtos específicos que respeitam a saúde capilar, o procedimento faz com que os cílios naturais da cliente aparentem ser consideravelmente maiores, mais densos e organizados. O resultado é um olhar marcante, expressivo e com um efeito "cílios de boneca" que dura de 45 a 60 dias.</p>
@@ -113,7 +116,7 @@
             </div>
           </div>
 
-          <aside class="curso-sidebar">
+          <aside class="curso-sidebar reveal">
             <span class="curso-sidebar__label" data-i18n="lash.sidebar.label">Fernanda Garcia Academy</span>
             <h3 data-i18n="lash.sidebar.h3">Lash Lifting Profissional</h3>
             <div class="curso-sidebar__info">
@@ -148,6 +151,6 @@
     </div>
   </footer>
 
-  <script src="main.js"></script>
+  <script src="main.js" defer></script>
 </body>
 </html>

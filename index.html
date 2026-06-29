@@ -54,10 +54,16 @@
   }
   </script>
 
-  <!-- Google Fonts -->
+  <!-- LCP preload -->
+  <link rel="preload" as="image" href="fotos/FerGarcia-33.jpg" fetchpriority="high" />
+
+  <!-- Google Fonts (async) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" />
+  </noscript>
 
   <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
@@ -151,7 +157,7 @@
     <!-- ═══════════════════════════════════════
          SOBRE
     ═══════════════════════════════════════ -->
-    <section class="sobre" id="sobre">
+    <section class="sobre reveal" id="sobre">
       <div class="container">
         <div class="sobre__grid">
           <div class="sobre__photo-wrap gs-reveal">
@@ -176,16 +182,16 @@
             <p data-i18n="sobre.p2">
               Na <strong>Fernanda Garcia Academy</strong>, reúno tudo que aprendi, da química dos produtos à prática de bancada, em um material didático completo para você dominar os procedimentos que mais crescem no mercado da beleza.
             </p>
-            <div class="sobre__stats">
-              <div class="stat">
+            <div class="sobre__stats reveal-group">
+              <div class="stat reveal">
                 <span class="stat__num">+100</span>
                 <span class="stat__label" data-i18n="sobre.stat1">Alunas formadas</span>
               </div>
-              <div class="stat">
+              <div class="stat reveal">
                 <span class="stat__num">+10</span>
                 <span class="stat__label" data-i18n="sobre.stat2">Anos de experiência</span>
               </div>
-              <div class="stat">
+              <div class="stat reveal">
                 <span class="stat__num">45–60</span>
                 <span class="stat__label" data-i18n="sobre.stat3">Dias de resultado</span>
               </div>
@@ -199,7 +205,7 @@
     <!-- ═══════════════════════════════════════
          PORTFÓLIO / MOSAICO
     ═══════════════════════════════════════ -->
-    <section class="portfolio" id="portfolio">
+    <section class="portfolio reveal" id="portfolio">
       <div class="container">
         <div class="section-header gs-reveal">
           <span class="section-label" data-i18n="portfolio.label">Portfólio</span>
@@ -223,7 +229,7 @@
     <!-- ═══════════════════════════════════════
          CARROSSEL DE VÍDEOS + ANTES & DEPOIS
     ═══════════════════════════════════════ -->
-    <section class="videos-section" id="videos">
+    <section class="videos-section reveal" id="videos">
       <div class="container">
         <div class="section-header gs-reveal">
           <span class="section-label" data-i18n="videos.label">Na prática</span>
@@ -272,7 +278,7 @@
         </div>
         <div class="faq__list gs-reveal">
 
-          <div class="faq__item">
+          <div class="faq__item reveal">
             <button class="faq__question" data-i18n="faq.q1">
               Quanto tempo dura o resultado do Lash Lifting?
               <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -284,7 +290,7 @@
             </div>
           </div>
 
-          <div class="faq__item">
+          <div class="faq__item reveal">
             <button class="faq__question" data-i18n="faq.q2">
               E o Brow Lamination, quanto tempo o efeito permanece?
               <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -296,7 +302,7 @@
             </div>
           </div>
 
-          <div class="faq__item">
+          <div class="faq__item reveal">
             <button class="faq__question" data-i18n="faq.q3">
               O Lash Lifting danifica os cílios naturais?
               <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -308,7 +314,7 @@
             </div>
           </div>
 
-          <div class="faq__item">
+          <div class="faq__item reveal">
             <button class="faq__question" data-i18n="faq.q4">
               Qual a diferença entre Lash Lifting e Brow Lamination?
               <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -320,7 +326,7 @@
             </div>
           </div>
 
-          <div class="faq__item">
+          <div class="faq__item reveal">
             <button class="faq__question" data-i18n="faq.q5">
               Como são estruturados os materiais didáticos?
               <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -339,7 +345,7 @@
     <!-- ═══════════════════════════════════════
          CONTATO / FORMULÁRIO
     ═══════════════════════════════════════ -->
-    <section class="contato" id="contato">
+    <section class="contato reveal" id="contato">
       <div class="container">
         <div class="contato__inner">
           <div class="contato__text gs-reveal">
@@ -435,7 +441,7 @@
           <a href="#sobre" data-i18n="nav.sobre">Sobre</a>
           <a href="#portfolio" data-i18n="nav.portfolio">Portfólio</a>
           <a href="#videos" data-i18n="nav.videos">Vídeos</a>
-          <a href="#cursos" data-i18n="nav.cursos">Cursos</a>
+          <a href="/cursos" data-i18n="nav.cursos">Cursos</a>
           <a href="#contato" data-i18n="footer.contact">Contato</a>
         </nav>
 
@@ -473,7 +479,7 @@
     </div>
   </footer>
 
-  <script src="main.js"></script>
+  <script src="main.js" defer></script>
 </body>
 
 </html>

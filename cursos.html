@@ -22,7 +22,10 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" />
+  </noscript>
 
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="cursos.css" />
@@ -78,7 +81,7 @@
       <div class="cursos-grid">
 
         <!-- Lash Lifting Iniciante -->
-        <article class="curso-card" id="lash-lifting">
+        <article class="curso-card reveal" id="lash-lifting">
           <!-- <div class="curso-card__img-placeholder">
             <img src="logos/lash-lifting.png" alt="Lash Lifting" />
           </div> -->
@@ -95,7 +98,7 @@
         </article>
 
         <!-- Brow Lamination + Design -->
-        <article class="curso-card" id="brow-lamination">
+        <article class="curso-card reveal" id="brow-lamination">
           <!-- <div class="curso-card__img-placeholder">
             <img src="logos/brow-lamination.png" alt="Brow Lamination" />
           </div> -->
@@ -113,7 +116,7 @@
         </article>
 
         <!-- Método Coreano -->
-        <article class="curso-card" id="lash-lifting-coreano">
+        <article class="curso-card reveal" id="lash-lifting-coreano">
           <!-- <div class="curso-card__img-placeholder">
             <img src="logos/lash-coreano.png" alt="Lash Lifting Método Coreano" />
           </div> -->
@@ -160,7 +163,7 @@
   </footer>
 
 
-  <script src="main.js"></script>
+  <script src="main.js" defer></script>
 </body>
 
 </html>

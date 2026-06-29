@@ -32,7 +32,10 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" />
+  </noscript>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="curso-page.css" />
 </head>
@@ -90,7 +93,7 @@
       <div class="container">
         <div class="curso-body__grid">
 
-          <div class="curso-desc">
+          <div class="curso-desc reveal">
             <h2 data-i18n="brow.h2">O que é o <em>Brow Lamination</em> com Design Estratégico?</h2>
             <p data-i18n="brow.p1">O Brow Lamination é um procedimento estético avançado que redefine, alinha e disciplina os pelos naturais das sobrancelhas. Através de uma técnica de alinhamento e do uso de produtos específicos que alteram a estrutura do fio de forma segura, os pelos tornam-se maleáveis, permitindo que fiquem penteados na direção desejada.</p>
             <p data-i18n="brow.p2">O grande diferencial deste procedimento é a sua união com o Design de Sobrancelhas Estratégico, que é a nossa assinatura. Longe de moldes prontos ou formatos artificiais, este estilo de design é totalmente personalizado para cada rosto, respeitando as linhas naturais, a anatomia e a identidade única de cada cliente, com foco absoluto na naturalidade.</p>
@@ -116,7 +119,7 @@
             </div>
           </div>
 
-          <aside class="curso-sidebar">
+          <aside class="curso-sidebar reveal">
             <span class="curso-sidebar__label" data-i18n="brow.sidebar.label">Fernanda Garcia Academy</span>
             <h3 data-i18n="brow.sidebar.h3">Brow Lamination + Design Estratégico</h3>
             <div class="curso-sidebar__info">
@@ -159,7 +162,7 @@
     </div>
   </footer>
 
-  <script src="main.js"></script>
+  <script src="main.js" defer></script>
 </body>
 
 </html>
