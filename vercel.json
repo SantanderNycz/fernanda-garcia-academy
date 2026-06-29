@@ -4,5 +4,27 @@
     { "source": "/lash-lifting", "destination": "/lash-lifting.html" },
     { "source": "/brow-lamination", "destination": "/brow-lamination.html" },
     { "source": "/lash-lifting-coreano", "destination": "/lash-lifting-coreano.html" }
+  ],
+  "headers": [
+    {
+      "source": "/fotos/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/videos/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/logos/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/fonts/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/Capas/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    }
   ]
 }
