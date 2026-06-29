@@ -61,6 +61,12 @@ const TRANSLATIONS = {
     "contato.h2": "Pronta para dar<br /><em>o próximo passo?</em>",
     "contato.p":
       "Preencha o formulário e entraremos em contato pelo WhatsApp para apresentar todos os detalhes dos cursos disponíveis.",
+    "form.nome.label": "Nome completo",
+    "form.nome.placeholder": "Seu nome",
+    "form.phone.label": "Telefone / WhatsApp",
+    "form.msg.label": "Mensagem (opcional)",
+    "form.msg.placeholder": "Conte um pouco sobre você...",
+    "form.submit": "Enviar pelo WhatsApp",
     // footer
     "footer.tagline": "Transformando paixão em profissão.",
     "footer.links": "Links",
@@ -261,6 +267,12 @@ const TRANSLATIONS = {
     "contato.h2": "Ready to take<br /><em>the next step?</em>",
     "contato.p":
       "Fill in the form and we will get in touch via WhatsApp with all the details about our available courses.",
+    "form.nome.label": "Full name",
+    "form.nome.placeholder": "Your name",
+    "form.phone.label": "Phone / WhatsApp",
+    "form.msg.label": "Message (optional)",
+    "form.msg.placeholder": "Tell us a bit about yourself...",
+    "form.submit": "Send via WhatsApp",
     // footer
     "footer.tagline": "Turning passion into profession.",
     "footer.links": "Links",
@@ -431,6 +443,11 @@ function setLang(lang) {
     } else {
       el.innerHTML = val;
     }
+  });
+
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+    const val = t[el.dataset.i18nPlaceholder];
+    if (val) el.placeholder = val;
   });
 }
 
