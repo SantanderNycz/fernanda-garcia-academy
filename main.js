@@ -527,10 +527,10 @@ if (cursor && follower && window.matchMedia("(hover: hover)").matches) {
 (function loadMosaic() {
   // Lista fixa — ordem preservada, 4 fotos = 1 linha do mosaico
   const FOTOS = [
-    "fotos/Mosaico-1.png",
-    "fotos/Mosaico-2.JPG",
-    "fotos/Mosaico-3.JPG",
-    "fotos/Mosaico-4.JPG",
+    "fotos/Mosaico-1.webp",
+    "fotos/Mosaico-2.webp",
+    "fotos/Mosaico-3.webp",
+    "fotos/Mosaico-4.webp",
   ];
 
   const photoCandidates = FOTOS;
@@ -683,15 +683,13 @@ if (cursor && follower && window.matchMedia("(hover: hover)").matches) {
     { type: "video", src: "videos/Lash-1.mp4" },
     { type: "video", src: "videos/Brow-depoimento.mp4" },
     { type: "video", src: "videos/divulg-1.mp4" },
-    { type: "video", src: "videos/Brow-lam.mp4" },
-    { type: "video", src: "videos/BROW LAMINATION.mp4" },
-    { type: "video", src: "videos/design sob.mp4" },
     { type: "video", src: "videos/Pagina-Lash.mp4" },
     { type: "video", src: "videos/Pagina-Brow.mp4" },
     { type: "video", src: "videos/Pagina-Lash-Coreano.mp4" },
-    { type: "photo", src: "videos/antes-depois1.JPG" },
-    { type: "photo", src: "videos/antes-depois2.JPG" },
-    { type: "photo", src: "videos/antes-depois3.JPG" },
+    { type: "photo", src: "videos/antes-depois1.webp" },
+    { type: "photo", src: "videos/antes-depois2.webp" },
+    { type: "photo", src: "videos/antes-depois3.webp" },
+    { type: "photo", src: "videos/antes-depois4.webp" },
   ];
 
   const fallback = $("#carouselFallback");
