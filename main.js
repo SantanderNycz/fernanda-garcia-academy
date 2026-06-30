@@ -703,6 +703,7 @@ if (cursor && follower && window.matchMedia("(hover: hover)").matches) {
     { type: "video", src: "videos/Pagina-Lash.mp4" },
     { type: "video", src: "videos/Pagina-Brow.mp4" },
     { type: "video", src: "videos/Pagina-Lash-Coreano.mp4" },
+    { type: "video", src: "videos/Lash-Coreano2.mp4" },
     { type: "photo", src: "videos/antes-depois1.webp" },
     { type: "photo", src: "videos/antes-depois2.webp" },
     { type: "photo", src: "videos/antes-depois3.webp" },
