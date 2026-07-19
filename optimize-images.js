@@ -31,6 +31,7 @@ async function run() {
     'marca-dagua-2.png',
     'marca-dagua-3.png',
     'marca-dagua-4.png',
+    'marca-dagua-5.png',
   ];
   for (const f of logos) {
     const input = './logos/' + f;
