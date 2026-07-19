@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/cursos.html", "destination": "/cursos", "permanent": true },
+    { "source": "/lash-lifting.html", "destination": "/lash-lifting", "permanent": true },
+    { "source": "/brow-lamination.html", "destination": "/brow-lamination", "permanent": true },
+    { "source": "/lash-lifting-coreano.html", "destination": "/lash-lifting-coreano", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/cursos", "destination": "/cursos.html" },
     { "source": "/lash-lifting", "destination": "/lash-lifting.html" },

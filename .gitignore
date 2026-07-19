@@ -3,3 +3,9 @@
 # Vídeos grandes (>100MB — limite do GitHub)
 videos/lash Brow.mov
 videos/*.mov
+
+# Relatorios Lighthouse
+lh-report.json
+
+# Node
+node_modules/
