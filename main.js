@@ -1116,8 +1116,16 @@ if (cursor && follower && window.matchMedia("(hover: hover)").matches) {
    7. GSAP ANIMATIONS
 ════════════════════════════════════════ */
 function initScrollReveal() {
-  if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined")
+  if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") {
+    // GSAP não carregou (falha de CDN/SRI). Revela o conteúdo em vez de o
+    // deixar preso em opacity:0 — senão Sobre, carrossel, FAQ e formulário
+    // ficariam invisíveis para sempre.
+    $$(".gs-reveal").forEach((el) => {
+      el.style.opacity = "1";
+      el.style.transform = "none";
+    });
     return;
+  }
   gsap.registerPlugin(ScrollTrigger);
 
   // Generic reveal

@@ -1567,6 +1567,26 @@ a[href*="wa.me"]:hover {
   transform: translateY(0);
   pointer-events: auto;
 }
+
+/* ═══════════════════════════════════════
+   Movimento reduzido — acessibilidade + rede de segurança
+   Revela os elementos de entrada e anula transições/animações.
+═══════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .gs-reveal,
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 .back-to-top:hover {
   background: var(--color-dark);
 }
